@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DiAppbetic</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#0f1117;
+color:white;
+overflow-x:hidden;
+}
+
+header{
+padding:20px;
+font-size:28px;
+font-weight:bold;
+text-align:center;
+background:#151925;
+box-shadow:0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* DIESE CSS TEILE ERSETZEN */
+
+/* NAVIGATION */
+nav{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+padding:12px;
+background:#1a1f2d;
+position:sticky;
+top:0;
+z-index:10;
+}
+
+nav button{
+background:#232c42;
+border:none;
+color:#bbb;
+font-size:14px;
+padding:12px 6px;
+cursor:pointer;
+transition:0.2s;
+border-radius:12px;
+width:100%;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+}
+
+/* PAGE */
+.page{
+display:none;
+padding:15px;
+width:100%;
+max-width:100%;
+overflow-x:hidden;
+}
+.page.active{
+display:block;
+}
+
+/* CARD */
+.card{pxpx
+background:#1b2232;
+padding:18px;
+border-radius:18px;
+margin-bottom:20px;
+box-shadow:0 4px 15px rgba(0,0,0,0.4);
+width:100%;
+overflow:hidden;
+}
+
+/* INPUTS */
+input{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+background:#2a3247;
+color:white;
+font-size:16px;
+max-width:100%;
+}
+
+/* BUTTON */
+button.main{
+margin-top:15px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#4da6ff;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* TABLE FIX */
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+border-radius:12px;
+overflow:hidden;
+table-layout:fixed;
+word-wrap:break-word;
+}
+
+th, td{
+padding:10px;
+font-size:14px;
+overflow-wrap:break-word;
+}
+
+/* PRODUKT HEADER */
+.product-title{
+font-size:22px;
+font-weight:bold;
+margin-bottom:5px;
+padding-right:40px;
+word-break:break-word;
+}
+
+.brand{
+color:#8fbfff;
+margin-bottom:15px;
+word-break:break-word;
+}
+
+/* FAVORITE STAR */
+.favorite{
+font-size:28px;
+cursor:pointer;
+float:right;
+width:32px;
+text-align:center;
+}
+
+/* SUCHERGEBNISSE */
+.search-results{
+margin-top:10px;
+background:#1f2638;
+border-radius:12px;
+overflow:hidden;
+width:100%;
+}
+
+.search-item{
+padding:12px;
+cursor:pointer;
+border-bottom:1px solid #2f3b55;
+word-break:break-word;
+}
+
+/* FAVORITEN */
+.fav-item{
+padding:15px;
+background:#20293d;
+margin-top:10px;
+border-radius:12px;
+word-break:break-word;
+width:100%;
+}
+
+/* MOBILE */
+@media(max-width:700px){
+
+header{
+font-size:22px;
+padding:16px;
+}
+
+nav{
+grid-template-columns:repeat(2,1fr);
+}
+
+th, td{
+font-size:12px;
+padding:8px;
+}
+
+.product-title{
+font-size:18px;
+}
+
+}
+
+.brand{
+color:#8fbfff;
+margin-bottom:15px;
+}
+
+.favorite{
+font-size:28px;
+cursor:pointer;
+float:right;
+}
+
+.search-results{
+margin-top:10px;
+background:#1f2638;
+border-radius:12px;
+overflow:hidden;
+}
+
+.search-item{
+padding:12px;
+cursor:pointer;
+border-bottom:1px solid #2f3b55;
+}
+
+.search-item:hover{
+background:#2d3750;
+}
+
+.fav-item{
+padding:15px;
+background:#20293d;
+margin-top:10px;
+border-radius:12px;
+}
+
+.section-title{
+font-size:20px;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+.small{
+font-size:14px;
+color:#aaa;
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>DiAppbetic</header>
+
+<nav>
+<button class="active" onclick="showPage('barcode', this)">Barcode</button>
+<button onclick="showPage('search', this)">Suche</button>
+<button onclick="showPage('calculator', this)">Rechner</button>
+<button onclick="showPage('favorites', this)">Favoriten</button>
+</nav>
+
+<!-- BARCODE -->
+<div id="barcode" class="page active">
+
+<div class="card">
+<div class="section-title">Barcode Scanner</div>
+
+<input id="barcodeInput" placeholder="Barcode eingeben...">
+<button class="main" onclick="searchBarcode()">Produkt suchen</button>
+
+<div id="barcodeResult"></div>
+
+</div>
+</div>
+
+<!-- SEARCH -->
+<div id="search" class="page">
+
+<div class="card">
+
+<div class="section-title">Produkt Suche</div>
+
+<input id="searchInput" placeholder="Name oder Marke eingeben..." oninput="autoSearch()">
+
+<div id="searchResults" class="search-results"></div>
+
+<div id="searchProduct"></div>
+
+</div>
+</div>
+
+<!-- CALCULATOR -->
+<div id="calculator" class="page">
+
+<div class="card">
+
+<div class="section-title">Nährwert Rechner</div>
+
+<input type="number" id="calcCarbs" placeholder="Kohlenhydrate pro 100g">
+<input type="number" id="calcEat" placeholder="Wie viel Gramm gegessen?">
+
+<button class="main" onclick="calculate()">Berechnen</button>
+
+<div id="calcResult" class="small"></div>
+
+</div>
+</div>
+
+<!-- FAVORITES -->
+<div id="favorites" class="page">
+
+<div class="card">
+
+<div class="section-title">Favoriten</div>
+
+<div id="favoritesList"></div>
+
+</div>
+</div>
+
+<script>
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+function showPage(id, btn){
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
+});
+
+document.getElementById(id).classList.add("active");
+
+document.querySelectorAll("nav button").forEach(b=>{
+b.classList.remove("active");
+});
+
+btn.classList.add("active");
+
+if(id==="favorites"){
+renderFavorites();
+}
+
+}
+
+async function searchBarcode(){
+
+let code = document.getElementById("barcodeInput").value;
+
+if(!code) return;
+
+let res = await fetch(`https://world.openfoodfacts.org/api/v0/product/${code}.json`);
+let data = await res.json();
+
+showProduct(data.product, "barcodeResult");
+
+}
+
+async function autoSearch(){
+
+let query = document.getElementById("searchInput").value;
+
+if(query.length < 2){
+document.getElementById("searchResults").innerHTML="";
+return;
+}
+
+let res = await fetch(`https://world.openfoodfacts.org/cgi/search.pl?search_terms=${query}&search_simple=1&action=process&json=1&page_size=8`);
+
+let data = await res.json();
+
+let html = "";
+
+data.products.forEach(p=>{
+
+html += `
+<div class="search-item"
+onclick='selectProduct(${JSON.stringify(p).replace(/'/g,"&apos;")})'>
+
+${p.product_name || "Unbekannt"} 
+<br>
+<small>${p.brands || ""}</small>
+
+</div>
+`;
+
+});
+
+document.getElementById("searchResults").innerHTML = html;
+
+}
+
+function selectProduct(product){
+
+document.getElementById("searchResults").innerHTML = "";
+
+showProduct(product, "searchProduct");
+
+}
+
+function showProduct(product, target){
+
+if(!product){
+document.getElementById(target).innerHTML = "Kein Produkt gefunden";
+return;
+}
+
+let nutr = product.nutriments || {};
+
+let serving =
+parseFloat(product.product_quantity) ||
+parseFloat(product.quantity) ||
+100;
+
+let carbs100 = nutr.carbohydrates_100g || 0;
+let sugar100 = nutr.sugars_100g || 0;
+let fat100 = nutr.fat_100g || 0;
+let protein100 = nutr.proteins_100g || 0;
+let kcal100 = nutr["energy-kcal_100g"] || 0;
+
+let carbsAll = (carbs100/100*serving).toFixed(1);
+let sugarAll = (sugar100/100*serving).toFixed(1);
+let fatAll = (fat100/100*serving).toFixed(1);
+let proteinAll = (protein100/100*serving).toFixed(1);
+let kcalAll = (kcal100/100*serving).toFixed(1);
+
+let fav = favorites.find(f=>f.code===product.code);
+
+document.getElementById(target).innerHTML = `
+
+<div class="card">
+
+<div class="favorite"
+onclick='toggleFavorite(${JSON.stringify(product)})'>
+${fav ? "⭐" : "☆"}
+</div>
+
+<div class="product-title">
+${product.product_name || "Unbekannt"}
+</div>
+
+<div class="brand">
+${product.brands || ""}
+</div>
+
+<div class="small">
+Barcode: ${product.code || "Unbekannt"}
+</div>
+
+<div class="small">
+Produktgewicht: ${serving}g
+</div>
+
+
+<table>
+
+<tr>
+<th>Nährwert</th>
+<th>100g</th>
+<th>Ganzes Produkt (${serving}g)</th>
+</tr>
+
+<tr>
+<td>Kcal</td>
+<td>${kcal100}</td>
+<td>${kcalAll}</td>
+</tr>
+
+<tr>
+<td>Kohlenhydrate</td>
+<td>${carbs100}g</td>
+<td>${carbsAll}g</td>
+</tr>
+
+<tr>
+<td>Zucker</td>
+<td>${sugar100}g</td>
+<td>${sugarAll}g</td>
+</tr>
+
+<tr>
+<td>Fett</td>
+<td>${fat100}g</td>
+<td>${fatAll}g</td>
+</tr>
+
+<tr>
+<td>Protein</td>
+<td>${protein100}g</td>
+<td>${proteinAll}g</td>
+</tr>
+
+</table>
+
+<input type="number" id="customGram" placeholder="Eigene Grammzahl">
+
+<button class="main"
+onclick='customCalc(${carbs100},${sugar100},${fat100},${protein100},${kcal100})'>
+Berechnen
+</button>
+
+<div id="customResult"></div>
+
+</div>
+
+`;
+
+}
+
+function customCalc(c,s,f,p,k){
+
+let g = parseFloat(document.getElementById("customGram").value);
+
+if(!g) return;
+
+document.getElementById("customResult").innerHTML = `
+
+<table>
+
+<tr>
+<th>Nährwert</th>
+<th>${g}g</th>
+</tr>
+
+<tr>
+<td>Kcal</td>
+<td>${(k/100*g).toFixed(1)}</td>
+</tr>
+
+<tr>
+<td>Kohlenhydrate</td>
+<td>${(c/100*g).toFixed(1)}g</td>
+</tr>
+
+<tr>
+<td>Zucker</td>
+<td>${(s/100*g).toFixed(1)}g</td>
+</tr>
+
+<tr>
+<td>Fett</td>
+<td>${(f/100*g).toFixed(1)}g</td>
+</tr>
+
+<tr>
+<td>Protein</td>
+<td>${(p/100*g).toFixed(1)}g</td>
+</tr>
+
+</table>
+
+`;
+
+}
+
+function toggleFavorite(product){
+
+let index = favorites.findIndex(f=>f.code===product.code);
+
+if(index>-1){
+favorites.splice(index,1);
+}else{
+favorites.push(product);
+}
+
+localStorage.setItem("favorites", JSON.stringify(favorites));
+
+location.reload();
+
+}
+
+function renderFavorites(){
+
+let container = document.getElementById("favoritesList");
+
+if(favorites.length===0){
+container.innerHTML = "Keine Favoriten";
+return;
+}
+
+container.innerHTML = "";
+
+favorites.forEach(f=>{
+
+container.innerHTML += `
+
+<div class="fav-item"
+onclick='openFavorite(${JSON.stringify(f).replace(/'/g,"&apos;")})'>
+
+<b>${f.product_name || "Unbekannt"}</b>
+<br>
+${f.brands || ""}
+
+</div>
+
+`;
+
+});
+
+}
+
+function openFavorite(product){
+
+showPage(
+'barcode',
+document.querySelectorAll("nav button")[0]
+);
+
+document.getElementById("barcodeInput").value =
+product.code || "";
+
+showProduct(product, "barcodeResult");
+
+}
+
+function calculate(){
+
+let carbs = parseFloat(document.getElementById("calcCarbs").value);
+let eat = parseFloat(document.getElementById("calcEat").value);
+
+if(!carbs || !eat) return;
+
+let result = carbs/100*eat;
+
+document.getElementById("calcResult").innerHTML = `
+Du hast <b>${result.toFixed(1)}g</b> Kohlenhydrate gegessen.
+`;
+
+}
+
+</script>
+
+</body>
+  </html>
