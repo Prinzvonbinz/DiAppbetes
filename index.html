@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>DiAppbetic</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -26,9 +28,63 @@ font-weight:bold;
 text-align:center;
 background:#151925;
 box-shadow:0 2px 10px rgba(0,0,0,0.5);
+position:relative;
 }
 
-/* NAVIGATION */
+/* =========================
+   SPRACHMENÜ
+========================= */
+
+.language-menu{
+position:absolute;
+right:15px;
+top:50%;
+transform:translateY(-50%);
+}
+
+.language-button{
+background:#232c42;
+color:white;
+border:none;
+border-radius:10px;
+padding:9px 12px;
+font-size:14px;
+cursor:pointer;
+}
+
+.language-dropdown{
+display:none;
+position:absolute;
+right:0;
+top:45px;
+background:#20283a;
+border-radius:12px;
+padding:6px;
+width:150px;
+box-shadow:0 5px 20px rgba(0,0,0,0.5);
+z-index:100;
+}
+
+.language-dropdown button{
+display:block;
+width:100%;
+border:none;
+background:transparent;
+color:white;
+padding:10px;
+text-align:left;
+border-radius:8px;
+cursor:pointer;
+}
+
+.language-dropdown button:hover{
+background:#303b55;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
 nav{
 display:grid;
 grid-template-columns:repeat(4,1fr);
@@ -60,7 +116,10 @@ background:#4da6ff;
 color:white;
 }
 
-/* PAGE */
+/* =========================
+   PAGE
+========================= */
+
 .page{
 display:none;
 padding:15px;
@@ -73,7 +132,10 @@ overflow-x:hidden;
 display:block;
 }
 
-/* CARD */
+/* =========================
+   CARD
+========================= */
+
 .card{
 background:#1b2232;
 padding:18px;
@@ -84,7 +146,10 @@ width:100%;
 overflow:hidden;
 }
 
-/* INPUTS */
+/* =========================
+   INPUT
+========================= */
+
 input{
 width:100%;
 padding:14px;
@@ -94,11 +159,13 @@ border-radius:12px;
 background:#2a3247;
 color:white;
 font-size:16px;
-max-width:100%;
 outline:none;
 }
 
-/* BUTTON */
+/* =========================
+   BUTTONS
+========================= */
+
 button.main{
 margin-top:15px;
 width:100%;
@@ -116,7 +183,10 @@ button.main:hover{
 background:#368fe5;
 }
 
-/* ZUTATEN BUTTON */
+/* =========================
+   ZUTATEN BUTTON
+========================= */
+
 button.ingredients-button{
 margin-top:10px;
 width:100%;
@@ -134,7 +204,10 @@ button.ingredients-button:hover{
 background:#3b4968;
 }
 
-/* ZUTATEN */
+/* =========================
+   ZUTATEN
+========================= */
+
 .ingredients{
 display:none;
 margin-top:12px;
@@ -153,7 +226,10 @@ margin-bottom:8px;
 color:white;
 }
 
-/* ALLERGENE */
+/* =========================
+   ALLERGENE
+========================= */
+
 .allergens{
 margin-top:15px;
 padding:15px;
@@ -172,7 +248,10 @@ margin-bottom:8px;
 font-weight:bold;
 }
 
-/* DATENQUELLE */
+/* =========================
+   DATENQUELLE
+========================= */
+
 .source{
 margin-top:15px;
 padding:12px;
@@ -186,7 +265,10 @@ color:#aaa;
 color:white;
 }
 
-/* TABLE */
+/* =========================
+   TABLE
+========================= */
+
 table{
 width:100%;
 border-collapse:collapse;
@@ -197,7 +279,8 @@ table-layout:fixed;
 word-wrap:break-word;
 }
 
-th,td{
+th,
+td{
 padding:10px;
 font-size:14px;
 overflow-wrap:break-word;
@@ -213,7 +296,10 @@ background:#20283a;
 border-top:1px solid #303b55;
 }
 
-/* PRODUKT */
+/* =========================
+   PRODUKT
+========================= */
+
 .product-title{
 font-size:22px;
 font-weight:bold;
@@ -228,7 +314,10 @@ margin-bottom:15px;
 word-break:break-word;
 }
 
-/* FAVORITE */
+/* =========================
+   FAVORIT
+========================= */
+
 .favorite{
 font-size:28px;
 cursor:pointer;
@@ -237,7 +326,10 @@ width:32px;
 text-align:center;
 }
 
-/* SUCHERGEBNISSE */
+/* =========================
+   SUCHE
+========================= */
+
 .search-results{
 margin-top:10px;
 background:#1f2638;
@@ -257,7 +349,10 @@ word-break:break-word;
 background:#2d3750;
 }
 
-/* FAVORITEN */
+/* =========================
+   FAVORITEN
+========================= */
+
 .fav-item{
 padding:15px;
 background:#20293d;
@@ -272,6 +367,10 @@ cursor:pointer;
 background:#2d3750;
 }
 
+/* =========================
+   TEXT
+========================= */
+
 .section-title{
 font-size:20px;
 margin-bottom:15px;
@@ -284,19 +383,45 @@ color:#aaa;
 margin-top:10px;
 }
 
-/* MOBILE */
+/* =========================
+   WARNUNG
+========================= */
+
+.warning{
+margin:20px 15px 30px 15px;
+padding:16px;
+background:#25202a;
+border:1px solid #4b4050;
+border-radius:14px;
+font-size:13px;
+line-height:1.6;
+color:#bbb;
+}
+
+.warning-title{
+font-weight:bold;
+color:white;
+margin-bottom:7px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:700px){
 
 header{
 font-size:22px;
 padding:16px;
+padding-right:70px;
 }
 
 nav{
 grid-template-columns:repeat(2,1fr);
 }
 
-th,td{
+th,
+td{
 font-size:12px;
 padding:8px;
 }
@@ -305,51 +430,140 @@ padding:8px;
 font-size:18px;
 }
 
+.language-button{
+padding:8px 9px;
 }
+
+}
+
 </style>
 </head>
 
 <body>
 
-<header>DiAppbetic</header>
+
+<header>
+
+<span>DiAppbetic</span>
+
+
+<!-- SPRACHE -->
+
+<div class="language-menu">
+
+<button
+class="language-button"
+onclick="toggleLanguageMenu()"
+id="languageButton"
+>
+🌐 DE
+</button>
+
+
+<div
+class="language-dropdown"
+id="languageDropdown"
+>
+
+<button onclick="changeLanguage('de')">
+DE – Deutsch
+</button>
+
+<button onclick="changeLanguage('en-US')">
+EN-US – English
+</button>
+
+<button onclick="changeLanguage('en-GB')">
+EN-UK – English
+</button>
+
+<button onclick="changeLanguage('es')">
+ES – Español
+</button>
+
+<button onclick="changeLanguage('fr')">
+FR – Français
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
 
 <nav>
-<button class="active" onclick="showPage('barcode',this)">
+
+<button
+class="active"
+onclick="showPage('barcode',this)"
+data-i18n="barcode"
+>
 Barcode
 </button>
 
-<button onclick="showPage('search',this)">
+<button
+onclick="showPage('search',this)"
+data-i18n="search"
+>
 Suche
 </button>
 
-<button onclick="showPage('calculator',this)">
+<button
+onclick="showPage('calculator',this)"
+data-i18n="calculator"
+>
 Rechner
 </button>
 
-<button onclick="showPage('favorites',this)">
+<button
+onclick="showPage('favorites',this)"
+data-i18n="favorites"
+>
 Favoriten
 </button>
+
 </nav>
 
 
-<!-- BARCODE -->
+<!-- =========================
+     BARCODE
+========================= -->
 
-<div id="barcode" class="page active">
+<div
+id="barcode"
+class="page active"
+>
 
 <div class="card">
 
-<div class="section-title">
+<div
+class="section-title"
+data-i18n="barcodeScanner"
+>
 Barcode Scanner
 </div>
 
+
 <input
 id="barcodeInput"
+data-placeholder="barcodePlaceholder"
 placeholder="Barcode eingeben..."
 >
 
-<button class="main" onclick="searchBarcode()">
+
+<button
+class="main"
+onclick="searchBarcode()"
+data-i18n="searchProduct"
+>
 Produkt suchen
 </button>
+
 
 <div id="barcodeResult"></div>
 
@@ -358,23 +572,38 @@ Produkt suchen
 </div>
 
 
-<!-- SUCHE -->
+<!-- =========================
+     SUCHE
+========================= -->
 
-<div id="search" class="page">
+<div
+id="search"
+class="page"
+>
 
 <div class="card">
 
-<div class="section-title">
+<div
+class="section-title"
+data-i18n="productSearch"
+>
 Produkt Suche
 </div>
 
+
 <input
 id="searchInput"
+data-placeholder="searchPlaceholder"
 placeholder="Name oder Marke eingeben..."
 oninput="autoSearch()"
 >
 
-<div id="searchResults" class="search-results"></div>
+
+<div
+id="searchResults"
+class="search-results"
+></div>
+
 
 <div id="searchProduct"></div>
 
@@ -383,48 +612,78 @@ oninput="autoSearch()"
 </div>
 
 
-<!-- RECHNER -->
+<!-- =========================
+     RECHNER
+========================= -->
 
-<div id="calculator" class="page">
+<div
+id="calculator"
+class="page"
+>
 
 <div class="card">
 
-<div class="section-title">
+<div
+class="section-title"
+data-i18n="nutritionCalculator"
+>
 Nährwert Rechner
 </div>
+
 
 <input
 type="number"
 id="calcCarbs"
+data-placeholder="carbsPlaceholder"
 placeholder="Kohlenhydrate pro 100g"
 >
+
 
 <input
 type="number"
 id="calcEat"
+data-placeholder="eatPlaceholder"
 placeholder="Wie viel Gramm gegessen?"
 >
 
-<button class="main" onclick="calculate()">
+
+<button
+class="main"
+onclick="calculate()"
+data-i18n="calculate"
+>
 Berechnen
 </button>
 
-<div id="calcResult" class="small"></div>
+
+<div
+id="calcResult"
+class="small"
+></div>
 
 </div>
 
 </div>
 
 
-<!-- FAVORITEN -->
+<!-- =========================
+     FAVORITEN
+========================= -->
 
-<div id="favorites" class="page">
+<div
+id="favorites"
+class="page"
+>
 
 <div class="card">
 
-<div class="section-title">
+<div
+class="section-title"
+data-i18n="favorites"
+>
 Favoriten
 </div>
+
 
 <div id="favoritesList"></div>
 
@@ -433,86 +692,624 @@ Favoriten
 </div>
 
 
+<!-- =========================
+     WARNUNG
+========================= -->
+
+<div class="warning">
+
+<div
+class="warning-title"
+data-i18n="warningTitle"
+>
+⚠️ Hinweis
+</div>
+
+
+<div
+data-i18n="warningText"
+>
+Die angezeigten Produktdaten stammen aus Open Food Facts.
+Daten können unvollständig, veraltet oder fehlerhaft sein.
+Bitte überprüfe wichtige Angaben immer anhand der
+Originalverpackung. DiAppbetic übernimmt keine Gewähr
+für die Richtigkeit der angezeigten Werte.
+</div>
+
+</div>
+
+
+
 <script>
 
-/* =========================
+
+/* =====================================================
+   SPRACHEN
+===================================================== */
+
+const translations={
+
+de:{
+
+barcode:"Barcode",
+search:"Suche",
+calculator:"Rechner",
+favorites:"Favoriten",
+
+barcodeScanner:"Barcode Scanner",
+productSearch:"Produkt Suche",
+nutritionCalculator:"Nährwert Rechner",
+
+barcodePlaceholder:"Barcode eingeben...",
+searchPlaceholder:"Name oder Marke eingeben...",
+carbsPlaceholder:"Kohlenhydrate pro 100g",
+eatPlaceholder:"Wie viel Gramm gegessen?",
+
+searchProduct:"Produkt suchen",
+calculate:"Berechnen",
+
+unknownProduct:"Unbekannt",
+searching:"Produkt wird gesucht...",
+noProduct:"❌ Kein Produkt gefunden.",
+searchError:"❌ Fehler bei der Suche.",
+noIngredients:"⚠️ Keine Zutatenliste vorhanden.",
+showIngredients:"🥕 Zutatenliste anzeigen",
+hideIngredients:"🔽 Zutatenliste ausblenden",
+
+nutrition:"Nährwert",
+per100:"100g",
+wholeProduct:"Ganzes Produkt",
+
+kcal:"Kcal",
+carbohydrates:"Kohlenhydrate",
+sugar:"Zucker",
+fat:"Fett",
+saturatedFat:"Gesättigte Fettsäuren",
+protein:"Protein",
+fiber:"Ballaststoffe",
+salt:"Salz",
+sodium:"Natrium",
+
+ownGrams:"Eigene Grammzahl",
+invalidGrams:"Bitte eine gültige Grammzahl eingeben.",
+
+ingredients:"🥕 Zutaten",
+allergens:"⚠️ Allergene",
+noAllergens:"Keine Allergene angegeben.",
+
+barcodeLabel:"Barcode",
+weight:"Produktgewicht",
+source:"🌐 Datenquelle",
+sourceName:"Open Food Facts",
+
+notAvailable:"Nicht vorhanden",
+
+noFavorites:"Keine Favoriten",
+
+eaten:"Du hast",
+carbsEaten:"Kohlenhydrate gegessen.",
+
+warningTitle:"⚠️ Hinweis",
+
+warningText:
+"Die angezeigten Produktdaten stammen aus Open Food Facts. Daten können unvollständig, veraltet oder fehlerhaft sein. Bitte überprüfe wichtige Angaben immer anhand der Originalverpackung. DiAppbetic übernimmt keine Gewähr für die Richtigkeit der angezeigten Werte."
+
+},
+
+"en-US":{
+
+barcode:"Barcode",
+search:"Search",
+calculator:"Calculator",
+favorites:"Favorites",
+
+barcodeScanner:"Barcode Scanner",
+productSearch:"Product Search",
+nutritionCalculator:"Nutrition Calculator",
+
+barcodePlaceholder:"Enter barcode...",
+searchPlaceholder:"Enter name or brand...",
+carbsPlaceholder:"Carbohydrates per 100g",
+eatPlaceholder:"How many grams did you eat?",
+
+searchProduct:"Search product",
+calculate:"Calculate",
+
+unknownProduct:"Unknown",
+searching:"Searching for product...",
+noProduct:"❌ No product found.",
+searchError:"❌ Search error.",
+noIngredients:"⚠️ No ingredient list available.",
+showIngredients:"🥕 Show ingredients",
+hideIngredients:"🔽 Hide ingredients",
+
+nutrition:"Nutrient",
+per100:"100g",
+wholeProduct:"Whole product",
+
+kcal:"Calories",
+carbohydrates:"Carbohydrates",
+sugar:"Sugar",
+fat:"Fat",
+saturatedFat:"Saturated fat",
+protein:"Protein",
+fiber:"Fiber",
+salt:"Salt",
+sodium:"Sodium",
+
+ownGrams:"Custom grams",
+invalidGrams:"Please enter a valid amount.",
+
+ingredients:"🥕 Ingredients",
+allergens:"⚠️ Allergens",
+noAllergens:"No allergens specified.",
+
+barcodeLabel:"Barcode",
+weight:"Product weight",
+source:"🌐 Data source",
+sourceName:"Open Food Facts",
+
+notAvailable:"Not available",
+
+noFavorites:"No favorites",
+
+eaten:"You ate",
+carbsEaten:"of carbohydrates.",
+
+warningTitle:"⚠️ Notice",
+
+warningText:
+"The displayed product data comes from Open Food Facts. Data may be incomplete, outdated or incorrect. Please always check important information against the original packaging. DiAppbetic does not guarantee the accuracy of the displayed values."
+
+},
+
+"en-GB":{
+
+barcode:"Barcode",
+search:"Search",
+calculator:"Calculator",
+favorites:"Favourites",
+
+barcodeScanner:"Barcode Scanner",
+productSearch:"Product Search",
+nutritionCalculator:"Nutrition Calculator",
+
+barcodePlaceholder:"Enter barcode...",
+searchPlaceholder:"Enter name or brand...",
+carbsPlaceholder:"Carbohydrates per 100g",
+eatPlaceholder:"How many grams did you eat?",
+
+searchProduct:"Search product",
+calculate:"Calculate",
+
+unknownProduct:"Unknown",
+searching:"Searching for product...",
+noProduct:"❌ No product found.",
+searchError:"❌ Search error.",
+noIngredients:"⚠️ No ingredient list available.",
+showIngredients:"🥕 Show ingredients",
+hideIngredients:"🔽 Hide ingredients",
+
+nutrition:"Nutrient",
+per100:"100g",
+wholeProduct:"Whole product",
+
+kcal:"Calories",
+carbohydrates:"Carbohydrates",
+sugar:"Sugar",
+fat:"Fat",
+saturatedFat:"Saturated fat",
+protein:"Protein",
+fiber:"Fibre",
+salt:"Salt",
+sodium:"Sodium",
+
+ownGrams:"Custom grams",
+invalidGrams:"Please enter a valid amount.",
+
+ingredients:"🥕 Ingredients",
+allergens:"⚠️ Allergens",
+noAllergens:"No allergens specified.",
+
+barcodeLabel:"Barcode",
+weight:"Product weight",
+source:"🌐 Data source",
+sourceName:"Open Food Facts",
+
+notAvailable:"Not available",
+
+noFavorites:"No favourites",
+
+eaten:"You ate",
+carbsEaten:"of carbohydrates.",
+
+warningTitle:"⚠️ Notice",
+
+warningText:
+"The displayed product data comes from Open Food Facts. Data may be incomplete, outdated or incorrect. Please always check important information against the original packaging. DiAppbetic does not guarantee the accuracy of the displayed values."
+
+},
+
+es:{
+
+barcode:"Código de barras",
+search:"Buscar",
+calculator:"Calculadora",
+favorites:"Favoritos",
+
+barcodeScanner:"Escáner de código de barras",
+productSearch:"Buscar producto",
+nutritionCalculator:"Calculadora nutricional",
+
+barcodePlaceholder:"Introducir código de barras...",
+searchPlaceholder:"Introducir nombre o marca...",
+carbsPlaceholder:"Carbohidratos por 100g",
+eatPlaceholder:"¿Cuántos gramos has comido?",
+
+searchProduct:"Buscar producto",
+calculate:"Calcular",
+
+unknownProduct:"Desconocido",
+searching:"Buscando producto...",
+noProduct:"❌ No se encontró ningún producto.",
+searchError:"❌ Error de búsqueda.",
+noIngredients:"⚠️ No hay lista de ingredientes.",
+showIngredients:"🥕 Mostrar ingredientes",
+hideIngredients:"🔽 Ocultar ingredientes",
+
+nutrition:"Nutriente",
+per100:"100g",
+wholeProduct:"Producto completo",
+
+kcal:"Calorías",
+carbohydrates:"Carbohidratos",
+sugar:"Azúcar",
+fat:"Grasas",
+saturatedFat:"Grasas saturadas",
+protein:"Proteínas",
+fiber:"Fibra",
+salt:"Sal",
+sodium:"Sodio",
+
+ownGrams:"Gramos personalizados",
+invalidGrams:"Introduce una cantidad válida.",
+
+ingredients:"🥕 Ingredientes",
+allergens:"⚠️ Alérgenos",
+noAllergens:"No se han indicado alérgenos.",
+
+barcodeLabel:"Código de barras",
+weight:"Peso del producto",
+source:"🌐 Fuente de datos",
+sourceName:"Open Food Facts",
+
+notAvailable:"No disponible",
+
+noFavorites:"No hay favoritos",
+
+eaten:"Has consumido",
+carbsEaten:"de carbohidratos.",
+
+warningTitle:"⚠️ Aviso",
+
+warningText:
+"Los datos mostrados proceden de Open Food Facts. Los datos pueden estar incompletos, desactualizados o contener errores. Comprueba siempre la información importante en el envase original. DiAppbetic no garantiza la exactitud de los valores mostrados."
+
+},
+
+fr:{
+
+barcode:"Code-barres",
+search:"Recherche",
+calculator:"Calculatrice",
+favorites:"Favoris",
+
+barcodeScanner:"Scanner de code-barres",
+productSearch:"Recherche de produit",
+nutritionCalculator:"Calculateur nutritionnel",
+
+barcodePlaceholder:"Entrer le code-barres...",
+searchPlaceholder:"Entrer le nom ou la marque...",
+carbsPlaceholder:"Glucides pour 100g",
+eatPlaceholder:"Combien de grammes avez-vous mangés ?",
+
+searchProduct:"Rechercher le produit",
+calculate:"Calculer",
+
+unknownProduct:"Inconnu",
+searching:"Recherche du produit...",
+noProduct:"❌ Aucun produit trouvé.",
+searchError:"❌ Erreur de recherche.",
+noIngredients:"⚠️ Aucune liste d'ingrédients disponible.",
+showIngredients:"🥕 Afficher les ingrédients",
+hideIngredients:"🔽 Masquer les ingrédients",
+
+nutrition:"Nutriment",
+per100:"100g",
+wholeProduct:"Produit entier",
+
+kcal:"Calories",
+carbohydrates:"Glucides",
+sugar:"Sucres",
+fat:"Matières grasses",
+saturatedFat:"Acides gras saturés",
+protein:"Protéines",
+fiber:"Fibres",
+salt:"Sel",
+sodium:"Sodium",
+
+ownGrams:"Grammes personnalisés",
+invalidGrams:"Veuillez entrer une quantité valide.",
+
+ingredients:"🥕 Ingrédients",
+allergens:"⚠️ Allergènes",
+noAllergens:"Aucun allergène indiqué.",
+
+barcodeLabel:"Code-barres",
+weight:"Poids du produit",
+source:"🌐 Source des données",
+sourceName:"Open Food Facts",
+
+notAvailable:"Non disponible",
+
+noFavorites:"Aucun favori",
+
+eaten:"Vous avez consommé",
+carbsEaten:"de glucides.",
+
+warningTitle:"⚠️ Attention",
+
+warningText:
+"Les données affichées proviennent d'Open Food Facts. Elles peuvent être incomplètes, obsolètes ou incorrectes. Vérifiez toujours les informations importantes sur l'emballage original. DiAppbetic ne garantit pas l'exactitude des valeurs affichées."
+
+}
+
+};
+
+
+/* =====================================================
+   AKTUELLE SPRACHE
+===================================================== */
+
+let currentLanguage=
+localStorage.getItem("language") || "de";
+
+
+/* =====================================================
+   ÜBERSETZUNG
+===================================================== */
+
+function t(key){
+
+return translations[currentLanguage][key]
+|| translations.de[key]
+|| key;
+
+}
+
+
+/* =====================================================
+   SPRACHE WECHSELN
+===================================================== */
+
+function changeLanguage(language){
+
+currentLanguage=language;
+
+localStorage.setItem(
+"language",
+language
+);
+
+document.documentElement.lang=
+language.substring(0,2);
+
+document.getElementById(
+"languageButton"
+).innerHTML=
+"🌐 " +
+(language==="en-US" ?
+"EN-US" :
+language==="en-GB" ?
+"EN-UK" :
+language.toUpperCase()
+);
+
+document.getElementById(
+"languageDropdown"
+).style.display="none";
+
+translatePage();
+
+}
+
+
+/* =====================================================
+   SEITE ÜBERSETZEN
+===================================================== */
+
+function translatePage(){
+
+document.querySelectorAll(
+"[data-i18n]"
+).forEach(element=>{
+
+let key=
+element.getAttribute(
+"data-i18n"
+);
+
+element.textContent=t(key);
+
+});
+
+
+document.querySelectorAll(
+"[data-placeholder]"
+).forEach(element=>{
+
+let key=
+element.getAttribute(
+"data-placeholder"
+);
+
+element.placeholder=t(key);
+
+});
+
+
+/* bereits angezeigte Produktkarte erneut rendern */
+
+let barcodeResult=
+document.getElementById(
+"barcodeResult"
+);
+
+if(
+barcodeResult &&
+barcodeResult.dataset.product
+){
+
+try{
+
+let product=
+JSON.parse(
+barcodeResult.dataset.product
+);
+
+showProduct(
+product,
+"barcodeResult"
+);
+
+}catch(e){}
+
+}
+
+}
+
+
+/* =====================================================
+   SPRACHMENÜ
+===================================================== */
+
+function toggleLanguageMenu(){
+
+let menu=
+document.getElementById(
+"languageDropdown"
+);
+
+menu.style.display=
+menu.style.display==="block"
+? "none"
+: "block";
+
+}
+
+
+/* =====================================================
    FAVORITEN
-========================= */
+===================================================== */
 
-let favorites =
-JSON.parse(localStorage.getItem("favorites")) || [];
+let favorites=
+JSON.parse(
+localStorage.getItem("favorites")
+) || [];
 
 
-/* =========================
+/* =====================================================
    SEITENWECHSEL
-========================= */
+===================================================== */
 
 function showPage(id,btn){
 
-document.querySelectorAll(".page").forEach(p=>{
+document.querySelectorAll(
+".page"
+).forEach(p=>{
 p.classList.remove("active");
 });
 
-document.getElementById(id).classList.add("active");
+document.getElementById(
+id
+).classList.add("active");
 
-document.querySelectorAll("nav button").forEach(b=>{
+
+document.querySelectorAll(
+"nav button"
+).forEach(b=>{
 b.classList.remove("active");
 });
 
 btn.classList.add("active");
 
+
 if(id==="favorites"){
+
 renderFavorites();
-}
 
 }
 
+}
 
-/* =========================
+
+/* =====================================================
    BARCODE
-========================= */
+===================================================== */
 
 async function searchBarcode(){
 
-let code =
-document.getElementById("barcodeInput")
-.value
-.trim();
+let code=
+document.getElementById(
+"barcodeInput"
+).value.trim();
 
 if(!code)return;
 
-let result =
-document.getElementById("barcodeResult");
 
-result.innerHTML =
-"Produkt wird gesucht...";
+let result=
+document.getElementById(
+"barcodeResult"
+);
+
+result.innerHTML=
+`<div class="small">${t("searching")}</div>`;
+
 
 try{
 
-let res=await fetch(
+let res=
+await fetch(
 `https://world.openfoodfacts.org/api/v0/product/${encodeURIComponent(code)}.json`
 );
 
-let data=await res.json();
+let data=
+await res.json();
 
-if(data.status!==1 || !data.product){
+
+if(
+data.status!==1 ||
+!data.product
+){
 
 result.innerHTML=
-"❌ Kein Produkt gefunden.";
+t("noProduct");
 
 return;
 
 }
+
 
 showProduct(
 data.product,
 "barcodeResult"
 );
 
+
 }catch(error){
 
 result.innerHTML=
-"❌ Fehler beim Abrufen des Produkts.";
+t("searchError");
 
 console.error(error);
 
@@ -521,16 +1318,17 @@ console.error(error);
 }
 
 
-/* =========================
-   SUCHE
-========================= */
+/* =====================================================
+   PRODUKTSUCHE
+===================================================== */
 
 async function autoSearch(){
 
 let query=
-document.getElementById("searchInput")
-.value
-.trim();
+document.getElementById(
+"searchInput"
+).value.trim();
+
 
 if(query.length<2){
 
@@ -542,39 +1340,50 @@ return;
 
 }
 
+
 let results=
 document.getElementById(
 "searchResults"
 );
 
 results.innerHTML=
-"<div class='search-item'>Suche...</div>";
+`<div class="search-item">${t("searching")}</div>`;
+
 
 try{
 
-let res=await fetch(
+let res=
+await fetch(
 `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=8`
 );
 
-let data=await res.json();
 
-if(!data.products ||
-data.products.length===0){
+let data=
+await res.json();
+
+
+if(
+!data.products ||
+data.products.length===0
+){
 
 results.innerHTML=
-"<div class='search-item'>❌ Kein Produkt gefunden.</div>";
+`<div class="search-item">${t("noProduct")}</div>`;
 
 return;
 
 }
 
+
 let html="";
+
 
 data.products.forEach(p=>{
 
 let productJSON=
 JSON.stringify(p)
 .replace(/'/g,"&apos;");
+
 
 html+=`
 
@@ -585,7 +1394,8 @@ onclick='selectProduct(${productJSON})'
 
 <b>
 ${escapeHTML(
-p.product_name || "Unbekannt"
+p.product_name ||
+t("unknownProduct")
 )}
 </b>
 
@@ -603,12 +1413,14 @@ p.brands || ""
 
 });
 
+
 results.innerHTML=html;
+
 
 }catch(error){
 
 results.innerHTML=
-"<div class='search-item'>❌ Fehler bei der Suche.</div>";
+`<div class="search-item">${t("searchError")}</div>`;
 
 console.error(error);
 
@@ -617,15 +1429,16 @@ console.error(error);
 }
 
 
-/* =========================
+/* =====================================================
    PRODUKT AUS SUCHE
-========================= */
+===================================================== */
 
 function selectProduct(product){
 
 document.getElementById(
 "searchResults"
 ).innerHTML="";
+
 
 showProduct(
 product,
@@ -635,20 +1448,119 @@ product,
 }
 
 
-/* =========================
-   PRODUKT ANZEIGEN
-========================= */
+/* =====================================================
+   NÄHRWERT HELFER
+===================================================== */
 
-function showProduct(product,target){
+function nutrient(
+nutriments,
+key
+){
+
+let value=
+nutriments[key];
+
+
+if(
+value===undefined ||
+value===null ||
+value===""
+){
+
+return null;
+
+}
+
+
+let number=
+parseFloat(value);
+
+
+if(
+isNaN(number)
+){
+
+return null;
+
+}
+
+
+return number;
+
+}
+
+
+/* =====================================================
+   NÄHRWERT FORMATIEREN
+===================================================== */
+
+function formatValue(
+value,
+unit="g"
+){
+
+if(
+value===null ||
+value===undefined
+){
+
+return t("notAvailable");
+
+}
+
+
+return value.toFixed(1) +
+(
+unit ? unit : ""
+);
+
+}
+
+
+/* =====================================================
+   GANZES PRODUKT BERECHNEN
+===================================================== */
+
+function wholeValue(
+value,
+serving
+){
+
+if(
+value===null ||
+value===undefined ||
+!serving
+){
+
+return null;
+
+}
+
+
+return value / 100 * serving;
+
+}
+
+
+/* =====================================================
+   PRODUKT ANZEIGEN
+===================================================== */
+
+function showProduct(
+product,
+target
+){
 
 if(!product){
 
-document.getElementById(target).innerHTML=
-"Kein Produkt gefunden";
+document.getElementById(target)
+.innerHTML=
+t("noProduct");
 
 return;
 
 }
+
 
 let nutr=
 product.nutriments || {};
@@ -657,96 +1569,119 @@ product.nutriments || {};
 /* Gewicht */
 
 let serving=
-parseFloat(product.product_quantity) ||
-parseFloat(product.quantity) ||
-100;
-
-
-/* =========================
-   NÄHRWERTE PRO 100G
-========================= */
-
-let kcal100=
 parseFloat(
-nutr["energy-kcal_100g"]
-) || 0;
-
-let carbs100=
-parseFloat(
-nutr.carbohydrates_100g
-) || 0;
-
-let sugar100=
-parseFloat(
-nutr.sugars_100g
-) || 0;
-
-let fat100=
-parseFloat(
-nutr.fat_100g
-) || 0;
-
-let saturated100=
-parseFloat(
-nutr["saturated-fat_100g"]
-) || 0;
-
-let protein100=
-parseFloat(
-nutr.proteins_100g
-) || 0;
-
-let fiber100=
-parseFloat(
-nutr.fiber_100g
-) || 0;
-
-let salt100=
-parseFloat(
-nutr.salt_100g
-) || 0;
-
-let sodium100=
-parseFloat(
-nutr.sodium_100g
-) || 0;
+product.product_quantity
+);
 
 
-/* =========================
-   GANZES PRODUKT
-========================= */
+if(
+isNaN(serving)
+){
+
+serving=
+parseFloat(product.quantity);
+
+}
+
+
+if(
+isNaN(serving) ||
+serving<=0
+){
+
+serving=100;
+
+}
+
+
+/* Nährwerte */
+
+let kcal=
+nutrient(
+nutr,
+"energy-kcal_100g"
+);
+
+let carbs=
+nutrient(
+nutr,
+"carbohydrates_100g"
+);
+
+let sugar=
+nutrient(
+nutr,
+"sugars_100g"
+);
+
+let fat=
+nutrient(
+nutr,
+"fat_100g"
+);
+
+let saturated=
+nutrient(
+nutr,
+"saturated-fat_100g"
+);
+
+let protein=
+nutrient(
+nutr,
+"proteins_100g"
+);
+
+let fiber=
+nutrient(
+nutr,
+"fiber_100g"
+);
+
+let salt=
+nutrient(
+nutr,
+"salt_100g"
+);
+
+let sodium=
+nutrient(
+nutr,
+"sodium_100g"
+);
+
+
+/* Ganze Packung */
 
 let kcalAll=
-(kcal100/100*serving).toFixed(1);
+wholeValue(kcal,serving);
 
 let carbsAll=
-(carbs100/100*serving).toFixed(1);
+wholeValue(carbs,serving);
 
 let sugarAll=
-(sugar100/100*serving).toFixed(1);
+wholeValue(sugar,serving);
 
 let fatAll=
-(fat100/100*serving).toFixed(1);
+wholeValue(fat,serving);
 
 let saturatedAll=
-(saturated100/100*serving).toFixed(1);
+wholeValue(saturated,serving);
 
 let proteinAll=
-(protein100/100*serving).toFixed(1);
+wholeValue(protein,serving);
 
 let fiberAll=
-(fiber100/100*serving).toFixed(1);
+wholeValue(fiber,serving);
 
 let saltAll=
-(salt100/100*serving).toFixed(1);
+wholeValue(salt,serving);
 
 let sodiumAll=
-(sodium100/100*serving).toFixed(1);
+wholeValue(sodium,serving);
 
 
-/* =========================
-   FAVORIT
-========================= */
+/* Favorit */
 
 let fav=
 favorites.find(
@@ -754,26 +1689,52 @@ f=>f.code===product.code
 );
 
 
-/* =========================
-   ZUTATEN
-========================= */
+/* =====================================================
+   ZUTATEN SPRACHE
+===================================================== */
+
+let languageCode=
+currentLanguage==="en-US" ||
+currentLanguage==="en-GB"
+? "en"
+: currentLanguage.substring(0,2);
+
+
+/*
+
+Open Food Facts verwendet sprachspezifische
+ingredients_text_xx Felder.
+
+*/
 
 let ingredients=
-product.ingredients_text_de ||
+product[
+"ingredients_text_" +
+languageCode
+];
+
+
+if(
+!ingredients
+){
+
+ingredients=
 product.ingredients_text ||
 "";
 
+}
 
-/* =========================
+
+/* =====================================================
    ALLERGENE
-========================= */
+===================================================== */
 
 let allergenText=
-product.allergens ||
-"";
+product.allergens || "";
 
 
 let allergens=[];
+
 
 if(allergenText){
 
@@ -786,7 +1747,7 @@ allergenText
 }
 
 
-/* Allergene lesbarer machen */
+/* Allergene Namen */
 
 let allergenNames=
 allergens.map(a=>{
@@ -798,26 +1759,27 @@ return a
 });
 
 
-/* =========================
-   ALLERGEN HTML
-========================= */
-
 let allergensHTML="";
 
-if(allergenNames.length>0){
+
+if(
+allergenNames.length>0
+){
 
 allergensHTML=`
 
 <div class="allergens">
 
 <div class="allergens-title">
-⚠️ Allergene
+${t("allergens")}
 </div>
 
 <div class="allergen-list">
 
 ${allergenNames
-.map(a=>`<strong>${escapeHTML(a)}</strong>`)
+.map(a=>
+`<strong>${escapeHTML(a)}</strong>`
+)
 .join(", ")
 }
 
@@ -834,12 +1796,12 @@ allergensHTML=`
 <div class="allergens">
 
 <div class="allergens-title">
-⚠️ Allergene
+${t("allergens")}
 </div>
 
 <div class="allergen-list">
 
-Keine Allergene angegeben.
+${t("noAllergens")}
 
 </div>
 
@@ -850,11 +1812,12 @@ Keine Allergene angegeben.
 }
 
 
-/* =========================
-   ZUTATEN HTML
-========================= */
+/* =====================================================
+   ZUTATEN
+===================================================== */
 
-let ingredientsHTML="";
+let ingredientsHTML;
+
 
 if(ingredients){
 
@@ -866,7 +1829,7 @@ class="ingredients"
 >
 
 <div class="ingredients-title">
-🥕 Zutaten
+${t("ingredients")}
 </div>
 
 <div>
@@ -887,11 +1850,11 @@ class="ingredients"
 >
 
 <div class="ingredients-title">
-🥕 Zutaten
+${t("ingredients")}
 </div>
 
 <div>
-⚠️ Keine Zutatenliste vorhanden.
+${t("noIngredients")}
 </div>
 
 </div>
@@ -901,11 +1864,19 @@ class="ingredients"
 }
 
 
-/* =========================
+/* =====================================================
    PRODUKTKARTE
-========================= */
+===================================================== */
 
-document.getElementById(target).innerHTML=`
+let container=
+document.getElementById(target);
+
+
+container.dataset.product=
+JSON.stringify(product);
+
+
+container.innerHTML=`
 
 <div class="card">
 
@@ -924,7 +1895,7 @@ ${fav ? "⭐":"☆"}
 
 ${escapeHTML(
 product.product_name ||
-"Unbekannt"
+t("unknownProduct")
 )}
 
 </div>
@@ -941,9 +1912,9 @@ product.brands || ""
 
 <div class="small">
 
-Barcode:
+${t("barcodeLabel")}:
 ${escapeHTML(
-product.code || "Unbekannt"
+product.code || t("notAvailable")
 )}
 
 </div>
@@ -951,123 +1922,128 @@ product.code || "Unbekannt"
 
 <div class="small">
 
-Produktgewicht:
+${t("weight")}:
 ${serving}g
 
 </div>
 
 
-<!-- NÄHRWERTTABELLE -->
+<!-- =========================
+     NÄHRWERTTABELLE
+========================= -->
 
 <table>
 
 <tr>
 
 <th>
-Nährwert
+${t("nutrition")}
 </th>
 
 <th>
-100g
+${t("per100")}
 </th>
 
 <th>
-Ganzes Produkt
+${t("wholeProduct")}
 </th>
 
 </tr>
 
 
 <tr>
-<td>Kcal</td>
-<td>${kcal100}</td>
-<td>${kcalAll}</td>
+<td>${t("kcal")}</td>
+<td>${formatValue(kcal,"")}</td>
+<td>${formatValue(kcalAll,"")}</td>
 </tr>
 
 
 <tr>
-<td>Kohlenhydrate</td>
-<td>${carbs100}g</td>
-<td>${carbsAll}g</td>
+<td>${t("carbohydrates")}</td>
+<td>${formatValue(carbs)}</td>
+<td>${formatValue(carbsAll)}</td>
 </tr>
 
 
 <tr>
-<td>Zucker</td>
-<td>${sugar100}g</td>
-<td>${sugarAll}g</td>
+<td>${t("sugar")}</td>
+<td>${formatValue(sugar)}</td>
+<td>${formatValue(sugarAll)}</td>
 </tr>
 
 
 <tr>
-<td>Fett</td>
-<td>${fat100}g</td>
-<td>${fatAll}g</td>
+<td>${t("fat")}</td>
+<td>${formatValue(fat)}</td>
+<td>${formatValue(fatAll)}</td>
 </tr>
 
 
 <tr>
-<td>Gesättigte Fettsäuren</td>
-<td>${saturated100}g</td>
-<td>${saturatedAll}g</td>
+<td>${t("saturatedFat")}</td>
+<td>${formatValue(saturated)}</td>
+<td>${formatValue(saturatedAll)}</td>
 </tr>
 
 
 <tr>
-<td>Protein</td>
-<td>${protein100}g</td>
-<td>${proteinAll}g</td>
+<td>${t("protein")}</td>
+<td>${formatValue(protein)}</td>
+<td>${formatValue(proteinAll)}</td>
 </tr>
 
 
 <tr>
-<td>Ballaststoffe</td>
-<td>${fiber100}g</td>
-<td>${fiberAll}g</td>
+<td>${t("fiber")}</td>
+<td>${formatValue(fiber)}</td>
+<td>${formatValue(fiberAll)}</td>
 </tr>
 
 
 <tr>
-<td>Salz</td>
-<td>${salt100}g</td>
-<td>${saltAll}g</td>
+<td>${t("salt")}</td>
+<td>${formatValue(salt)}</td>
+<td>${formatValue(saltAll)}</td>
 </tr>
 
 
 <tr>
-<td>Natrium</td>
-<td>${sodium100}g</td>
-<td>${sodiumAll}g</td>
+<td>${t("sodium")}</td>
+<td>${formatValue(sodium)}</td>
+<td>${formatValue(sodiumAll)}</td>
 </tr>
 
 </table>
 
 
-<!-- EIGENE GRAMMZAHL -->
+<!-- =========================
+     EIGENE GRAMMZAHL
+========================= -->
 
 <input
 type="number"
 id="customGram"
-placeholder="Eigene Grammzahl"
+data-placeholder="ownGrams"
+placeholder="${t("ownGrams")}"
 >
 
 
 <button
 class="main"
 onclick='customCalc(
-${carbs100},
-${sugar100},
-${fat100},
-${protein100},
-${kcal100},
-${saturated100},
-${fiber100},
-${salt100},
-${sodium100}
+${JSON.stringify(carbs)},
+${JSON.stringify(sugar)},
+${JSON.stringify(fat)},
+${JSON.stringify(protein)},
+${JSON.stringify(kcal)},
+${JSON.stringify(saturated)},
+${JSON.stringify(fiber)},
+${JSON.stringify(salt)},
+${JSON.stringify(sodium)}
 )'
 >
 
-Berechnen
+${t("calculate")}
 
 </button>
 
@@ -1075,14 +2051,16 @@ Berechnen
 <div id="customResult"></div>
 
 
-<!-- ZUTATEN -->
+<!-- =========================
+     ZUTATEN BUTTON
+========================= -->
 
 <button
 class="ingredients-button"
 onclick="toggleIngredients(this)"
 >
 
-🥕 Zutatenliste anzeigen
+${t("showIngredients")}
 
 </button>
 
@@ -1090,18 +2068,22 @@ onclick="toggleIngredients(this)"
 ${ingredientsHTML}
 
 
-<!-- ALLERGENE -->
+<!-- =========================
+     ALLERGENE
+========================= -->
 
 ${allergensHTML}
 
 
-<!-- DATENQUELLE -->
+<!-- =========================
+     DATENQUELLE
+========================= -->
 
 <div class="source">
 
-<b>🌐 Datenquelle:</b>
+<b>${t("source")}:</b>
 
-Open Food Facts
+${t("sourceName")}
 
 </div>
 
@@ -1113,45 +2095,48 @@ Open Food Facts
 }
 
 
-/* =========================
+/* =====================================================
    ZUTATEN EIN/AUSBLENDEN
-========================= */
+===================================================== */
 
 function toggleIngredients(button){
 
 let box=
 button.nextElementSibling;
 
-if(box.style.display==="block"){
+
+if(
+box.style.display==="block"
+){
 
 box.style.display="none";
 
 button.innerHTML=
-"🥕 Zutatenliste anzeigen";
+t("showIngredients");
 
 }else{
 
 box.style.display="block";
 
 button.innerHTML=
-"🔽 Zutatenliste ausblenden";
+t("hideIngredients");
 
 }
 
 }
 
 
-/* =========================
+/* =====================================================
    EIGENE GRAMMZAHL
-========================= */
+===================================================== */
 
 function customCalc(
-c,
-s,
-f,
-p,
-k,
-sat,
+carbs,
+sugar,
+fat,
+protein,
+kcal,
+saturated,
 fiber,
 salt,
 sodium
@@ -1164,16 +2149,39 @@ document.getElementById(
 ).value
 );
 
-if(!g || g<=0){
+
+if(
+isNaN(g) ||
+g<=0
+){
 
 document.getElementById(
 "customResult"
 ).innerHTML=
-"Bitte eine gültige Grammzahl eingeben.";
+`<div class="small">${t("invalidGrams")}</div>`;
 
 return;
 
 }
+
+
+function custom(value){
+
+if(
+value===null ||
+value===undefined
+){
+
+return t("notAvailable");
+
+}
+
+return (
+value / 100 * g
+).toFixed(1);
+
+}
+
 
 document.getElementById(
 "customResult"
@@ -1182,53 +2190,69 @@ document.getElementById(
 <table>
 
 <tr>
-<th>Nährwert</th>
-<th>${g}g</th>
+
+<th>
+${t("nutrition")}
+</th>
+
+<th>
+${g}g
+</th>
+
 </tr>
 
-<tr>
-<td>Kcal</td>
-<td>${(k/100*g).toFixed(1)}</td>
-</tr>
 
 <tr>
-<td>Kohlenhydrate</td>
-<td>${(c/100*g).toFixed(1)}g</td>
+<td>${t("kcal")}</td>
+<td>${custom(kcal)}</td>
 </tr>
 
-<tr>
-<td>Zucker</td>
-<td>${(s/100*g).toFixed(1)}g</td>
-</tr>
 
 <tr>
-<td>Fett</td>
-<td>${(f/100*g).toFixed(1)}g</td>
+<td>${t("carbohydrates")}</td>
+<td>${custom(carbs)}g</td>
 </tr>
 
-<tr>
-<td>Gesättigte Fettsäuren</td>
-<td>${(sat/100*g).toFixed(1)}g</td>
-</tr>
 
 <tr>
-<td>Protein</td>
-<td>${(p/100*g).toFixed(1)}g</td>
+<td>${t("sugar")}</td>
+<td>${custom(sugar)}g</td>
 </tr>
 
-<tr>
-<td>Ballaststoffe</td>
-<td>${(fiber/100*g).toFixed(1)}g</td>
-</tr>
 
 <tr>
-<td>Salz</td>
-<td>${(salt/100*g).toFixed(1)}g</td>
+<td>${t("fat")}</td>
+<td>${custom(fat)}g</td>
 </tr>
 
+
 <tr>
-<td>Natrium</td>
-<td>${(sodium/100*g).toFixed(1)}g</td>
+<td>${t("saturatedFat")}</td>
+<td>${custom(saturated)}g</td>
+</tr>
+
+
+<tr>
+<td>${t("protein")}</td>
+<td>${custom(protein)}g</td>
+</tr>
+
+
+<tr>
+<td>${t("fiber")}</td>
+<td>${custom(fiber)}g</td>
+</tr>
+
+
+<tr>
+<td>${t("salt")}</td>
+<td>${custom(salt)}g</td>
+</tr>
+
+
+<tr>
+<td>${t("sodium")}</td>
+<td>${custom(sodium)}g</td>
 </tr>
 
 </table>
@@ -1238,9 +2262,9 @@ document.getElementById(
 }
 
 
-/* =========================
-   FAVORITEN
-========================= */
+/* =====================================================
+   FAVORIT TOGGLE
+===================================================== */
 
 function toggleFavorite(product){
 
@@ -1248,6 +2272,7 @@ let index=
 favorites.findIndex(
 f=>f.code===product.code
 );
+
 
 if(index>-1){
 
@@ -1259,19 +2284,66 @@ favorites.push(product);
 
 }
 
+
 localStorage.setItem(
 "favorites",
 JSON.stringify(favorites)
 );
 
-location.reload();
+
+/*
+
+Nicht die komplette Seite neu laden.
+Stattdessen aktuelles Produkt neu darstellen.
+
+*/
+
+let barcode=
+document.getElementById(
+"barcodeResult"
+);
+
+let search=
+document.getElementById(
+"searchProduct"
+);
+
+
+if(
+barcode &&
+barcode.dataset.product
+){
+
+showProduct(
+JSON.parse(
+barcode.dataset.product
+),
+"barcodeResult"
+);
 
 }
 
 
-/* =========================
+if(
+search &&
+search.dataset.product
+){
+
+showProduct(
+JSON.parse(
+search.dataset.product
+),
+"searchProduct"
+);
+
+}
+
+}
+
+
+/* =====================================================
    FAVORITEN ANZEIGEN
-========================= */
+===================================================== */
 
 function renderFavorites(){
 
@@ -1280,22 +2352,28 @@ document.getElementById(
 "favoritesList"
 );
 
-if(favorites.length===0){
+
+if(
+favorites.length===0
+){
 
 container.innerHTML=
-"Keine Favoriten";
+t("noFavorites");
 
 return;
 
 }
 
+
 container.innerHTML="";
+
 
 favorites.forEach(f=>{
 
 let productJSON=
 JSON.stringify(f)
 .replace(/'/g,"&apos;");
+
 
 container.innerHTML+=`
 
@@ -1306,7 +2384,8 @@ onclick='openFavorite(${productJSON})'
 
 <b>
 ${escapeHTML(
-f.product_name || "Unbekannt"
+f.product_name ||
+t("unknownProduct")
 )}
 </b>
 
@@ -1325,9 +2404,9 @@ f.brands || ""
 }
 
 
-/* =========================
+/* =====================================================
    FAVORIT ÖFFNEN
-========================= */
+===================================================== */
 
 function openFavorite(product){
 
@@ -1338,10 +2417,12 @@ document.querySelectorAll(
 )[0]
 );
 
+
 document.getElementById(
 "barcodeInput"
 ).value=
 product.code || "";
+
 
 showProduct(
 product,
@@ -1351,9 +2432,9 @@ product,
 }
 
 
-/* =========================
+/* =====================================================
    RECHNER
-========================= */
+===================================================== */
 
 function calculate(){
 
@@ -1364,12 +2445,14 @@ document.getElementById(
 ).value
 );
 
+
 let eat=
 parseFloat(
 document.getElementById(
 "calcEat"
 ).value
 );
+
 
 if(
 isNaN(carbs) ||
@@ -1380,25 +2463,27 @@ return;
 
 }
 
+
 let result=
-carbs/100*eat;
+carbs / 100 * eat;
+
 
 document.getElementById(
 "calcResult"
 ).innerHTML=`
 
-Du hast
+${t("eaten")}
 <b>${result.toFixed(1)}g</b>
-Kohlenhydrate gegessen.
+${t("carbsEaten")}
 
 `;
 
 }
 
 
-/* =========================
+/* =====================================================
    HTML SICHER MACHEN
-========================= */
+===================================================== */
 
 function escapeHTML(value){
 
@@ -1411,7 +2496,9 @@ return "";
 
 }
 
+
 return String(value)
+
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
@@ -1420,7 +2507,16 @@ return String(value)
 
 }
 
+
+/* =====================================================
+   START
+===================================================== */
+
+changeLanguage(
+currentLanguage
+);
+
 </script>
 
 </body>
-</html>
+   </html>
