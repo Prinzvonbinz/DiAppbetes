@@ -28,8 +28,6 @@ background:#151925;
 box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
 
-/* DIESE CSS TEILE ERSETZEN */
-
 /* NAVIGATION */
 nav{
 display:grid;
@@ -57,6 +55,11 @@ text-overflow:ellipsis;
 white-space:nowrap;
 }
 
+nav button.active{
+background:#4da6ff;
+color:white;
+}
+
 /* PAGE */
 .page{
 display:none;
@@ -65,12 +68,13 @@ width:100%;
 max-width:100%;
 overflow-x:hidden;
 }
+
 .page.active{
 display:block;
 }
 
 /* CARD */
-.card{pxpx
+.card{
 background:#1b2232;
 padding:18px;
 border-radius:18px;
@@ -91,6 +95,7 @@ background:#2a3247;
 color:white;
 font-size:16px;
 max-width:100%;
+outline:none;
 }
 
 /* BUTTON */
@@ -107,7 +112,48 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* TABLE FIX */
+button.main:hover{
+background:#368fe5;
+}
+
+/* ZUTATEN BUTTON */
+button.ingredients-button{
+margin-top:10px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#303b55;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button.ingredients-button:hover{
+background:#3b4968;
+}
+
+/* ZUTATEN */
+.ingredients{
+display:none;
+margin-top:12px;
+padding:15px;
+background:#20293d;
+border-radius:12px;
+line-height:1.6;
+font-size:14px;
+color:#ddd;
+}
+
+.ingredients-title{
+font-size:17px;
+font-weight:bold;
+margin-bottom:8px;
+color:white;
+}
+
+/* TABLE */
 table{
 width:100%;
 border-collapse:collapse;
@@ -118,10 +164,20 @@ table-layout:fixed;
 word-wrap:break-word;
 }
 
-th, td{
+th,td{
 padding:10px;
 font-size:14px;
 overflow-wrap:break-word;
+text-align:left;
+}
+
+th{
+background:#252e43;
+}
+
+td{
+background:#20283a;
+border-top:1px solid #303b55;
 }
 
 /* PRODUKT HEADER */
@@ -164,6 +220,10 @@ border-bottom:1px solid #2f3b55;
 word-break:break-word;
 }
 
+.search-item:hover{
+background:#2d3750;
+}
+
 /* FAVORITEN */
 .fav-item{
 padding:15px;
@@ -172,6 +232,23 @@ margin-top:10px;
 border-radius:12px;
 word-break:break-word;
 width:100%;
+cursor:pointer;
+}
+
+.fav-item:hover{
+background:#2d3750;
+}
+
+.section-title{
+font-size:20px;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+.small{
+font-size:14px;
+color:#aaa;
+margin-top:10px;
 }
 
 /* MOBILE */
@@ -186,7 +263,7 @@ nav{
 grid-template-columns:repeat(2,1fr);
 }
 
-th, td{
+th,td{
 font-size:12px;
 padding:8px;
 }
@@ -195,53 +272,6 @@ padding:8px;
 font-size:18px;
 }
 
-}
-
-.brand{
-color:#8fbfff;
-margin-bottom:15px;
-}
-
-.favorite{
-font-size:28px;
-cursor:pointer;
-float:right;
-}
-
-.search-results{
-margin-top:10px;
-background:#1f2638;
-border-radius:12px;
-overflow:hidden;
-}
-
-.search-item{
-padding:12px;
-cursor:pointer;
-border-bottom:1px solid #2f3b55;
-}
-
-.search-item:hover{
-background:#2d3750;
-}
-
-.fav-item{
-padding:15px;
-background:#20293d;
-margin-top:10px;
-border-radius:12px;
-}
-
-.section-title{
-font-size:20px;
-margin-bottom:15px;
-font-weight:bold;
-}
-
-.small{
-font-size:14px;
-color:#aaa;
-margin-top:10px;
 }
 </style>
 </head>
@@ -257,28 +287,45 @@ margin-top:10px;
 <button onclick="showPage('favorites', this)">Favoriten</button>
 </nav>
 
+
 <!-- BARCODE -->
 <div id="barcode" class="page active">
 
 <div class="card">
-<div class="section-title">Barcode Scanner</div>
 
-<input id="barcodeInput" placeholder="Barcode eingeben...">
-<button class="main" onclick="searchBarcode()">Produkt suchen</button>
+<div class="section-title">
+Barcode Scanner
+</div>
+
+<input
+id="barcodeInput"
+placeholder="Barcode eingeben..."
+>
+
+<button class="main" onclick="searchBarcode()">
+Produkt suchen
+</button>
 
 <div id="barcodeResult"></div>
 
 </div>
 </div>
 
+
 <!-- SEARCH -->
 <div id="search" class="page">
 
 <div class="card">
 
-<div class="section-title">Produkt Suche</div>
+<div class="section-title">
+Produkt Suche
+</div>
 
-<input id="searchInput" placeholder="Name oder Marke eingeben..." oninput="autoSearch()">
+<input
+id="searchInput"
+placeholder="Name oder Marke eingeben..."
+oninput="autoSearch()"
+>
 
 <div id="searchResults" class="search-results"></div>
 
@@ -287,38 +334,66 @@ margin-top:10px;
 </div>
 </div>
 
+
 <!-- CALCULATOR -->
 <div id="calculator" class="page">
 
 <div class="card">
 
-<div class="section-title">Nährwert Rechner</div>
+<div class="section-title">
+Nährwert Rechner
+</div>
 
-<input type="number" id="calcCarbs" placeholder="Kohlenhydrate pro 100g">
-<input type="number" id="calcEat" placeholder="Wie viel Gramm gegessen?">
+<input
+type="number"
+id="calcCarbs"
+placeholder="Kohlenhydrate pro 100g"
+>
 
-<button class="main" onclick="calculate()">Berechnen</button>
+<input
+type="number"
+id="calcEat"
+placeholder="Wie viel Gramm gegessen?"
+>
+
+<button class="main" onclick="calculate()">
+Berechnen
+</button>
 
 <div id="calcResult" class="small"></div>
 
 </div>
 </div>
 
+
 <!-- FAVORITES -->
 <div id="favorites" class="page">
 
 <div class="card">
 
-<div class="section-title">Favoriten</div>
+<div class="section-title">
+Favoriten
+</div>
 
 <div id="favoritesList"></div>
 
 </div>
 </div>
 
+
 <script>
 
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+/* =========================
+   FAVORITEN
+========================= */
+
+let favorites =
+JSON.parse(localStorage.getItem("favorites")) || [];
+
+
+/* =========================
+   SEITENWECHSEL
+========================= */
 
 function showPage(id, btn){
 
@@ -334,214 +409,637 @@ b.classList.remove("active");
 
 btn.classList.add("active");
 
-if(id==="favorites"){
+if(id === "favorites"){
 renderFavorites();
 }
 
 }
 
+
+/* =========================
+   BARCODE SUCHE
+========================= */
+
 async function searchBarcode(){
 
-let code = document.getElementById("barcodeInput").value;
+let code =
+document.getElementById("barcodeInput").value.trim();
 
-if(!code) return;
-
-let res = await fetch(`https://world.openfoodfacts.org/api/v0/product/${code}.json`);
-let data = await res.json();
-
-showProduct(data.product, "barcodeResult");
-
-}
-
-async function autoSearch(){
-
-let query = document.getElementById("searchInput").value;
-
-if(query.length < 2){
-document.getElementById("searchResults").innerHTML="";
+if(!code){
 return;
 }
 
-let res = await fetch(`https://world.openfoodfacts.org/cgi/search.pl?search_terms=${query}&search_simple=1&action=process&json=1&page_size=8`);
+let result =
+document.getElementById("barcodeResult");
 
-let data = await res.json();
+result.innerHTML =
+"Produkt wird gesucht...";
+
+try{
+
+let res =
+await fetch(
+`https://world.openfoodfacts.org/api/v0/product/${encodeURIComponent(code)}.json`
+);
+
+let data =
+await res.json();
+
+if(
+data.status !== 1 ||
+!data.product
+){
+
+result.innerHTML =
+"❌ Kein Produkt gefunden.";
+
+return;
+}
+
+showProduct(
+data.product,
+"barcodeResult"
+);
+
+}catch(error){
+
+result.innerHTML =
+"❌ Fehler beim Abrufen des Produkts.";
+
+console.error(error);
+
+}
+
+}
+
+
+/* =========================
+   PRODUKTSUCHE
+========================= */
+
+async function autoSearch(){
+
+let query =
+document.getElementById("searchInput").value.trim();
+
+if(query.length < 2){
+
+document.getElementById("searchResults").innerHTML="";
+
+return;
+}
+
+let results =
+document.getElementById("searchResults");
+
+results.innerHTML =
+"<div class='search-item'>Suche...</div>";
+
+try{
+
+let res =
+await fetch(
+`https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=8`
+);
+
+let data =
+await res.json();
 
 let html = "";
 
+if(!data.products || data.products.length === 0){
+
+results.innerHTML =
+"<div class='search-item'>Kein Produkt gefunden.</div>";
+
+return;
+
+}
+
 data.products.forEach(p=>{
 
-html += `
-<div class="search-item"
-onclick='selectProduct(${JSON.stringify(p).replace(/'/g,"&apos;")})'>
+let productJSON =
+JSON.stringify(p)
+.replace(/'/g,"&apos;");
 
-${p.product_name || "Unbekannt"} 
+html += `
+
+<div
+class="search-item"
+onclick='selectProduct(${productJSON})'
+>
+
+<b>
+${escapeHTML(p.product_name || "Unbekannt")}
+</b>
+
 <br>
-<small>${p.brands || ""}</small>
+
+<small>
+${escapeHTML(p.brands || "")}
+</small>
 
 </div>
+
 `;
 
 });
 
-document.getElementById("searchResults").innerHTML = html;
+results.innerHTML = html;
+
+}catch(error){
+
+results.innerHTML =
+"<div class='search-item'>Fehler bei der Suche.</div>";
+
+console.error(error);
 
 }
+
+}
+
+
+/* =========================
+   PRODUKT AUS SUCHERGEBNIS
+========================= */
 
 function selectProduct(product){
 
-document.getElementById("searchResults").innerHTML = "";
+document.getElementById(
+"searchResults"
+).innerHTML = "";
 
-showProduct(product, "searchProduct");
+showProduct(
+product,
+"searchProduct"
+);
 
 }
 
-function showProduct(product, target){
+
+/* =========================
+   PRODUKT ANZEIGEN
+========================= */
+
+function showProduct(product,target){
 
 if(!product){
-document.getElementById(target).innerHTML = "Kein Produkt gefunden";
+
+document.getElementById(target).innerHTML =
+"Kein Produkt gefunden";
+
 return;
+
 }
 
-let nutr = product.nutriments || {};
+let nutr =
+product.nutriments || {};
+
+
+/* Produktgewicht */
 
 let serving =
 parseFloat(product.product_quantity) ||
 parseFloat(product.quantity) ||
 100;
 
-let carbs100 = nutr.carbohydrates_100g || 0;
-let sugar100 = nutr.sugars_100g || 0;
-let fat100 = nutr.fat_100g || 0;
-let protein100 = nutr.proteins_100g || 0;
-let kcal100 = nutr["energy-kcal_100g"] || 0;
 
-let carbsAll = (carbs100/100*serving).toFixed(1);
-let sugarAll = (sugar100/100*serving).toFixed(1);
-let fatAll = (fat100/100*serving).toFixed(1);
-let proteinAll = (protein100/100*serving).toFixed(1);
-let kcalAll = (kcal100/100*serving).toFixed(1);
+/* Nährwerte */
 
-let fav = favorites.find(f=>f.code===product.code);
+let carbs100 =
+parseFloat(nutr.carbohydrates_100g) || 0;
+
+let sugar100 =
+parseFloat(nutr.sugars_100g) || 0;
+
+let fat100 =
+parseFloat(nutr.fat_100g) || 0;
+
+let protein100 =
+parseFloat(nutr.proteins_100g) || 0;
+
+let kcal100 =
+parseFloat(nutr["energy-kcal_100g"]) || 0;
+
+
+/* Ganze Packung */
+
+let carbsAll =
+(carbs100 / 100 * serving).toFixed(1);
+
+let sugarAll =
+(sugar100 / 100 * serving).toFixed(1);
+
+let fatAll =
+(fat100 / 100 * serving).toFixed(1);
+
+let proteinAll =
+(protein100 / 100 * serving).toFixed(1);
+
+let kcalAll =
+(kcal100 / 100 * serving).toFixed(1);
+
+
+/* Favorit */
+
+let fav =
+favorites.find(
+f => f.code === product.code
+);
+
+
+/* Zutaten */
+
+let ingredients =
+product.ingredients_text ||
+product.ingredients_text_de ||
+"";
+
+
+/* Zutaten HTML */
+
+let ingredientsHTML = "";
+
+if(ingredients){
+
+ingredientsHTML = `
+
+<div
+id="ingredientsBox"
+class="ingredients"
+>
+
+<div class="ingredients-title">
+🥕 Zutaten
+</div>
+
+<div>
+${escapeHTML(ingredients)}
+</div>
+
+</div>
+
+`;
+
+}else{
+
+ingredientsHTML = `
+
+<div
+id="ingredientsBox"
+class="ingredients"
+>
+
+<div class="ingredients-title">
+🥕 Zutaten
+</div>
+
+<div>
+⚠️ Für dieses Produkt wurde keine Zutatenliste gefunden.
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* Produktkarte */
 
 document.getElementById(target).innerHTML = `
 
 <div class="card">
 
-<div class="favorite"
-onclick='toggleFavorite(${JSON.stringify(product)})'>
+<div
+class="favorite"
+onclick='toggleFavorite(${JSON.stringify(product)})'
+>
+
 ${fav ? "⭐" : "☆"}
+
 </div>
+
 
 <div class="product-title">
-${product.product_name || "Unbekannt"}
+
+${escapeHTML(
+product.product_name ||
+"Unbekannt"
+)}
+
 </div>
+
 
 <div class="brand">
-${product.brands || ""}
+
+${escapeHTML(
+product.brands || ""
+)}
+
 </div>
 
-<div class="small">
-Barcode: ${product.code || "Unbekannt"}
-</div>
 
 <div class="small">
-Produktgewicht: ${serving}g
+
+Barcode:
+${escapeHTML(product.code || "Unbekannt")}
+
+</div>
+
+
+<div class="small">
+
+Produktgewicht:
+${serving}g
+
 </div>
 
 
 <table>
 
 <tr>
-<th>Nährwert</th>
-<th>100g</th>
-<th>Ganzes Produkt (${serving}g)</th>
+
+<th>
+Nährwert
+</th>
+
+<th>
+100g
+</th>
+
+<th>
+Ganzes Produkt (${serving}g)
+</th>
+
 </tr>
 
-<tr>
-<td>Kcal</td>
-<td>${kcal100}</td>
-<td>${kcalAll}</td>
-</tr>
 
 <tr>
-<td>Kohlenhydrate</td>
-<td>${carbs100}g</td>
-<td>${carbsAll}g</td>
+
+<td>
+Kcal
+</td>
+
+<td>
+${kcal100}
+</td>
+
+<td>
+${kcalAll}
+</td>
+
 </tr>
 
-<tr>
-<td>Zucker</td>
-<td>${sugar100}g</td>
-<td>${sugarAll}g</td>
-</tr>
 
 <tr>
-<td>Fett</td>
-<td>${fat100}g</td>
-<td>${fatAll}g</td>
+
+<td>
+Kohlenhydrate
+</td>
+
+<td>
+${carbs100}g
+</td>
+
+<td>
+${carbsAll}g
+</td>
+
 </tr>
 
+
 <tr>
-<td>Protein</td>
-<td>${protein100}g</td>
-<td>${proteinAll}g</td>
+
+<td>
+Zucker
+</td>
+
+<td>
+${sugar100}g
+</td>
+
+<td>
+${sugarAll}g
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Fett
+</td>
+
+<td>
+${fat100}g
+</td>
+
+<td>
+${fatAll}g
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Protein
+</td>
+
+<td>
+${protein100}g
+</td>
+
+<td>
+${proteinAll}g
+</td>
+
 </tr>
 
 </table>
 
-<input type="number" id="customGram" placeholder="Eigene Grammzahl">
 
-<button class="main"
-onclick='customCalc(${carbs100},${sugar100},${fat100},${protein100},${kcal100})'>
+<!-- EIGENE GRAMMZAHL -->
+
+<input
+type="number"
+id="customGram"
+placeholder="Eigene Grammzahl"
+>
+
+
+<button
+class="main"
+onclick='customCalc(${carbs100},${sugar100},${fat100},${protein100},${kcal100})'
+>
+
 Berechnen
+
 </button>
+
 
 <div id="customResult"></div>
 
+
+<!-- NEUER ZUTATEN-BUTTON -->
+
+<button
+class="ingredients-button"
+onclick="toggleIngredients(this)"
+>
+
+🥕 Zutatenliste anzeigen
+
+</button>
+
+
+${ingredientsHTML}
+
+
 </div>
 
 `;
 
 }
 
+
+/* =========================
+   ZUTATEN EIN/AUSBLENDEN
+========================= */
+
+function toggleIngredients(button){
+
+let box =
+button.nextElementSibling;
+
+if(
+box.style.display === "block"
+){
+
+box.style.display = "none";
+
+button.innerHTML =
+"🥕 Zutatenliste anzeigen";
+
+}else{
+
+box.style.display = "block";
+
+button.innerHTML =
+"🔽 Zutatenliste ausblenden";
+
+}
+
+}
+
+
+/* =========================
+   EIGENE GRAMMZAHL
+========================= */
+
 function customCalc(c,s,f,p,k){
 
-let g = parseFloat(document.getElementById("customGram").value);
+let input =
+document.getElementById("customGram");
 
-if(!g) return;
+let g =
+parseFloat(input.value);
 
-document.getElementById("customResult").innerHTML = `
+if(!g || g <= 0){
+
+document.getElementById(
+"customResult"
+).innerHTML =
+"Bitte eine gültige Grammzahl eingeben.";
+
+return;
+
+}
+
+document.getElementById(
+"customResult"
+).innerHTML = `
 
 <table>
 
 <tr>
-<th>Nährwert</th>
-<th>${g}g</th>
+
+<th>
+Nährwert
+</th>
+
+<th>
+${g}g
+</th>
+
 </tr>
 
-<tr>
-<td>Kcal</td>
-<td>${(k/100*g).toFixed(1)}</td>
-</tr>
 
 <tr>
-<td>Kohlenhydrate</td>
-<td>${(c/100*g).toFixed(1)}g</td>
+
+<td>
+Kcal
+</td>
+
+<td>
+${(k / 100 * g).toFixed(1)}
+</td>
+
 </tr>
 
-<tr>
-<td>Zucker</td>
-<td>${(s/100*g).toFixed(1)}g</td>
-</tr>
 
 <tr>
-<td>Fett</td>
-<td>${(f/100*g).toFixed(1)}g</td>
+
+<td>
+Kohlenhydrate
+</td>
+
+<td>
+${(c / 100 * g).toFixed(1)}g
+</td>
+
 </tr>
 
+
 <tr>
-<td>Protein</td>
-<td>${(p/100*g).toFixed(1)}g</td>
+
+<td>
+Zucker
+</td>
+
+<td>
+${(s / 100 * g).toFixed(1)}g
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Fett
+</td>
+
+<td>
+${(f / 100 * g).toFixed(1)}g
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Protein
+</td>
+
+<td>
+${(p / 100 * g).toFixed(1)}g
+</td>
+
 </tr>
 
 </table>
@@ -550,43 +1048,84 @@ document.getElementById("customResult").innerHTML = `
 
 }
 
+
+/* =========================
+   FAVORIT HINZUFÜGEN/ENTFERNEN
+========================= */
+
 function toggleFavorite(product){
 
-let index = favorites.findIndex(f=>f.code===product.code);
+let index =
+favorites.findIndex(
+f => f.code === product.code
+);
 
-if(index>-1){
+if(index > -1){
+
 favorites.splice(index,1);
+
 }else{
+
 favorites.push(product);
+
 }
 
-localStorage.setItem("favorites", JSON.stringify(favorites));
+localStorage.setItem(
+"favorites",
+JSON.stringify(favorites)
+);
 
 location.reload();
 
 }
 
+
+/* =========================
+   FAVORITEN ANZEIGEN
+========================= */
+
 function renderFavorites(){
 
-let container = document.getElementById("favoritesList");
+let container =
+document.getElementById(
+"favoritesList"
+);
 
-if(favorites.length===0){
-container.innerHTML = "Keine Favoriten";
+if(favorites.length === 0){
+
+container.innerHTML =
+"Keine Favoriten";
+
 return;
+
 }
 
 container.innerHTML = "";
 
 favorites.forEach(f=>{
 
+let productJSON =
+JSON.stringify(f)
+.replace(/'/g,"&apos;");
+
 container.innerHTML += `
 
-<div class="fav-item"
-onclick='openFavorite(${JSON.stringify(f).replace(/'/g,"&apos;")})'>
+<div
+class="fav-item"
+onclick='openFavorite(${productJSON})'
+>
 
-<b>${f.product_name || "Unbekannt"}</b>
+<b>
+${escapeHTML(
+f.product_name || "Unbekannt"
+)}
+</b>
+
 <br>
-${f.brands || ""}
+
+${escapeHTML(
+f.brands || ""
+)}
 
 </div>
 
@@ -596,36 +1135,101 @@ ${f.brands || ""}
 
 }
 
+
+/* =========================
+   FAVORIT ÖFFNEN
+========================= */
+
 function openFavorite(product){
 
 showPage(
-'barcode',
-document.querySelectorAll("nav button")[0]
+"barcode",
+document.querySelectorAll(
+"nav button"
+)[0]
 );
 
-document.getElementById("barcodeInput").value =
+document.getElementById(
+"barcodeInput"
+).value =
 product.code || "";
 
-showProduct(product, "barcodeResult");
+showProduct(
+product,
+"barcodeResult"
+);
 
 }
 
+
+/* =========================
+   RECHNER
+========================= */
+
 function calculate(){
 
-let carbs = parseFloat(document.getElementById("calcCarbs").value);
-let eat = parseFloat(document.getElementById("calcEat").value);
+let carbs =
+parseFloat(
+document.getElementById(
+"calcCarbs"
+).value
+);
 
-if(!carbs || !eat) return;
+let eat =
+parseFloat(
+document.getElementById(
+"calcEat"
+).value
+);
 
-let result = carbs/100*eat;
+if(
+isNaN(carbs) ||
+isNaN(eat)
+){
 
-document.getElementById("calcResult").innerHTML = `
-Du hast <b>${result.toFixed(1)}g</b> Kohlenhydrate gegessen.
+return;
+
+}
+
+let result =
+carbs / 100 * eat;
+
+document.getElementById(
+"calcResult"
+).innerHTML = `
+
+Du hast
+<b>${result.toFixed(1)}g</b>
+Kohlenhydrate gegessen.
+
 `;
+
+}
+
+
+/* =========================
+   SICHERES HTML
+========================= */
+
+function escapeHTML(value){
+
+if(value === null ||
+value === undefined){
+
+return "";
+
+}
+
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 </script>
 
 </body>
-  </html>
+</html>
