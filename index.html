@@ -10,7 +10,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
@@ -153,6 +153,39 @@ margin-bottom:8px;
 color:white;
 }
 
+/* ALLERGENE */
+.allergens{
+margin-top:15px;
+padding:15px;
+background:#2b2330;
+border-radius:12px;
+line-height:1.6;
+}
+
+.allergens-title{
+font-size:17px;
+font-weight:bold;
+margin-bottom:8px;
+}
+
+.allergen-list{
+font-weight:bold;
+}
+
+/* DATENQUELLE */
+.source{
+margin-top:15px;
+padding:12px;
+background:#20293d;
+border-radius:12px;
+font-size:14px;
+color:#aaa;
+}
+
+.source b{
+color:white;
+}
+
 /* TABLE */
 table{
 width:100%;
@@ -180,7 +213,7 @@ background:#20283a;
 border-top:1px solid #303b55;
 }
 
-/* PRODUKT HEADER */
+/* PRODUKT */
 .product-title{
 font-size:22px;
 font-weight:bold;
@@ -195,7 +228,7 @@ margin-bottom:15px;
 word-break:break-word;
 }
 
-/* FAVORITE STAR */
+/* FAVORITE */
 .favorite{
 font-size:28px;
 cursor:pointer;
@@ -281,14 +314,26 @@ font-size:18px;
 <header>DiAppbetic</header>
 
 <nav>
-<button class="active" onclick="showPage('barcode', this)">Barcode</button>
-<button onclick="showPage('search', this)">Suche</button>
-<button onclick="showPage('calculator', this)">Rechner</button>
-<button onclick="showPage('favorites', this)">Favoriten</button>
+<button class="active" onclick="showPage('barcode',this)">
+Barcode
+</button>
+
+<button onclick="showPage('search',this)">
+Suche
+</button>
+
+<button onclick="showPage('calculator',this)">
+Rechner
+</button>
+
+<button onclick="showPage('favorites',this)">
+Favoriten
+</button>
 </nav>
 
 
 <!-- BARCODE -->
+
 <div id="barcode" class="page active">
 
 <div class="card">
@@ -309,10 +354,12 @@ Produkt suchen
 <div id="barcodeResult"></div>
 
 </div>
+
 </div>
 
 
-<!-- SEARCH -->
+<!-- SUCHE -->
+
 <div id="search" class="page">
 
 <div class="card">
@@ -332,10 +379,12 @@ oninput="autoSearch()"
 <div id="searchProduct"></div>
 
 </div>
+
 </div>
 
 
-<!-- CALCULATOR -->
+<!-- RECHNER -->
+
 <div id="calculator" class="page">
 
 <div class="card">
@@ -363,10 +412,12 @@ Berechnen
 <div id="calcResult" class="small"></div>
 
 </div>
+
 </div>
 
 
-<!-- FAVORITES -->
+<!-- FAVORITEN -->
+
 <div id="favorites" class="page">
 
 <div class="card">
@@ -378,6 +429,7 @@ Favoriten
 <div id="favoritesList"></div>
 
 </div>
+
 </div>
 
 
@@ -395,7 +447,7 @@ JSON.parse(localStorage.getItem("favorites")) || [];
    SEITENWECHSEL
 ========================= */
 
-function showPage(id, btn){
+function showPage(id,btn){
 
 document.querySelectorAll(".page").forEach(p=>{
 p.classList.remove("active");
@@ -409,7 +461,7 @@ b.classList.remove("active");
 
 btn.classList.add("active");
 
-if(id === "favorites"){
+if(id==="favorites"){
 renderFavorites();
 }
 
@@ -417,17 +469,17 @@ renderFavorites();
 
 
 /* =========================
-   BARCODE SUCHE
+   BARCODE
 ========================= */
 
 async function searchBarcode(){
 
 let code =
-document.getElementById("barcodeInput").value.trim();
+document.getElementById("barcodeInput")
+.value
+.trim();
 
-if(!code){
-return;
-}
+if(!code)return;
 
 let result =
 document.getElementById("barcodeResult");
@@ -437,23 +489,19 @@ result.innerHTML =
 
 try{
 
-let res =
-await fetch(
+let res=await fetch(
 `https://world.openfoodfacts.org/api/v0/product/${encodeURIComponent(code)}.json`
 );
 
-let data =
-await res.json();
+let data=await res.json();
 
-if(
-data.status !== 1 ||
-!data.product
-){
+if(data.status!==1 || !data.product){
 
-result.innerHTML =
+result.innerHTML=
 "❌ Kein Produkt gefunden.";
 
 return;
+
 }
 
 showProduct(
@@ -463,7 +511,7 @@ data.product,
 
 }catch(error){
 
-result.innerHTML =
+result.innerHTML=
 "❌ Fehler beim Abrufen des Produkts.";
 
 console.error(error);
@@ -474,55 +522,61 @@ console.error(error);
 
 
 /* =========================
-   PRODUKTSUCHE
+   SUCHE
 ========================= */
 
 async function autoSearch(){
 
-let query =
-document.getElementById("searchInput").value.trim();
+let query=
+document.getElementById("searchInput")
+.value
+.trim();
 
-if(query.length < 2){
+if(query.length<2){
 
-document.getElementById("searchResults").innerHTML="";
+document.getElementById(
+"searchResults"
+).innerHTML="";
 
 return;
+
 }
 
-let results =
-document.getElementById("searchResults");
+let results=
+document.getElementById(
+"searchResults"
+);
 
-results.innerHTML =
+results.innerHTML=
 "<div class='search-item'>Suche...</div>";
 
 try{
 
-let res =
-await fetch(
+let res=await fetch(
 `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=8`
 );
 
-let data =
-await res.json();
+let data=await res.json();
 
-let html = "";
+if(!data.products ||
+data.products.length===0){
 
-if(!data.products || data.products.length === 0){
-
-results.innerHTML =
-"<div class='search-item'>Kein Produkt gefunden.</div>";
+results.innerHTML=
+"<div class='search-item'>❌ Kein Produkt gefunden.</div>";
 
 return;
 
 }
 
+let html="";
+
 data.products.forEach(p=>{
 
-let productJSON =
+let productJSON=
 JSON.stringify(p)
 .replace(/'/g,"&apos;");
 
-html += `
+html+=`
 
 <div
 class="search-item"
@@ -530,13 +584,17 @@ onclick='selectProduct(${productJSON})'
 >
 
 <b>
-${escapeHTML(p.product_name || "Unbekannt")}
+${escapeHTML(
+p.product_name || "Unbekannt"
+)}
 </b>
 
 <br>
 
 <small>
-${escapeHTML(p.brands || "")}
+${escapeHTML(
+p.brands || ""
+)}
 </small>
 
 </div>
@@ -545,12 +603,12 @@ ${escapeHTML(p.brands || "")}
 
 });
 
-results.innerHTML = html;
+results.innerHTML=html;
 
 }catch(error){
 
-results.innerHTML =
-"<div class='search-item'>Fehler bei der Suche.</div>";
+results.innerHTML=
+"<div class='search-item'>❌ Fehler bei der Suche.</div>";
 
 console.error(error);
 
@@ -560,14 +618,14 @@ console.error(error);
 
 
 /* =========================
-   PRODUKT AUS SUCHERGEBNIS
+   PRODUKT AUS SUCHE
 ========================= */
 
 function selectProduct(product){
 
 document.getElementById(
 "searchResults"
-).innerHTML = "";
+).innerHTML="";
 
 showProduct(
 product,
@@ -585,84 +643,222 @@ function showProduct(product,target){
 
 if(!product){
 
-document.getElementById(target).innerHTML =
+document.getElementById(target).innerHTML=
 "Kein Produkt gefunden";
 
 return;
 
 }
 
-let nutr =
+let nutr=
 product.nutriments || {};
 
 
-/* Produktgewicht */
+/* Gewicht */
 
-let serving =
+let serving=
 parseFloat(product.product_quantity) ||
 parseFloat(product.quantity) ||
 100;
 
 
-/* Nährwerte */
+/* =========================
+   NÄHRWERTE PRO 100G
+========================= */
 
-let carbs100 =
-parseFloat(nutr.carbohydrates_100g) || 0;
+let kcal100=
+parseFloat(
+nutr["energy-kcal_100g"]
+) || 0;
 
-let sugar100 =
-parseFloat(nutr.sugars_100g) || 0;
+let carbs100=
+parseFloat(
+nutr.carbohydrates_100g
+) || 0;
 
-let fat100 =
-parseFloat(nutr.fat_100g) || 0;
+let sugar100=
+parseFloat(
+nutr.sugars_100g
+) || 0;
 
-let protein100 =
-parseFloat(nutr.proteins_100g) || 0;
+let fat100=
+parseFloat(
+nutr.fat_100g
+) || 0;
 
-let kcal100 =
-parseFloat(nutr["energy-kcal_100g"]) || 0;
+let saturated100=
+parseFloat(
+nutr["saturated-fat_100g"]
+) || 0;
+
+let protein100=
+parseFloat(
+nutr.proteins_100g
+) || 0;
+
+let fiber100=
+parseFloat(
+nutr.fiber_100g
+) || 0;
+
+let salt100=
+parseFloat(
+nutr.salt_100g
+) || 0;
+
+let sodium100=
+parseFloat(
+nutr.sodium_100g
+) || 0;
 
 
-/* Ganze Packung */
+/* =========================
+   GANZES PRODUKT
+========================= */
 
-let carbsAll =
-(carbs100 / 100 * serving).toFixed(1);
+let kcalAll=
+(kcal100/100*serving).toFixed(1);
 
-let sugarAll =
-(sugar100 / 100 * serving).toFixed(1);
+let carbsAll=
+(carbs100/100*serving).toFixed(1);
 
-let fatAll =
-(fat100 / 100 * serving).toFixed(1);
+let sugarAll=
+(sugar100/100*serving).toFixed(1);
 
-let proteinAll =
-(protein100 / 100 * serving).toFixed(1);
+let fatAll=
+(fat100/100*serving).toFixed(1);
 
-let kcalAll =
-(kcal100 / 100 * serving).toFixed(1);
+let saturatedAll=
+(saturated100/100*serving).toFixed(1);
+
+let proteinAll=
+(protein100/100*serving).toFixed(1);
+
+let fiberAll=
+(fiber100/100*serving).toFixed(1);
+
+let saltAll=
+(salt100/100*serving).toFixed(1);
+
+let sodiumAll=
+(sodium100/100*serving).toFixed(1);
 
 
-/* Favorit */
+/* =========================
+   FAVORIT
+========================= */
 
-let fav =
+let fav=
 favorites.find(
-f => f.code === product.code
+f=>f.code===product.code
 );
 
 
-/* Zutaten */
+/* =========================
+   ZUTATEN
+========================= */
 
-let ingredients =
-product.ingredients_text ||
+let ingredients=
 product.ingredients_text_de ||
+product.ingredients_text ||
 "";
 
 
-/* Zutaten HTML */
+/* =========================
+   ALLERGENE
+========================= */
 
-let ingredientsHTML = "";
+let allergenText=
+product.allergens ||
+"";
+
+
+let allergens=[];
+
+if(allergenText){
+
+allergens=
+allergenText
+.split(",")
+.map(a=>a.trim())
+.filter(a=>a);
+
+}
+
+
+/* Allergene lesbarer machen */
+
+let allergenNames=
+allergens.map(a=>{
+
+return a
+.replace(/^.*:/,"")
+.replace(/-/g," ");
+
+});
+
+
+/* =========================
+   ALLERGEN HTML
+========================= */
+
+let allergensHTML="";
+
+if(allergenNames.length>0){
+
+allergensHTML=`
+
+<div class="allergens">
+
+<div class="allergens-title">
+⚠️ Allergene
+</div>
+
+<div class="allergen-list">
+
+${allergenNames
+.map(a=>`<strong>${escapeHTML(a)}</strong>`)
+.join(", ")
+}
+
+</div>
+
+</div>
+
+`;
+
+}else{
+
+allergensHTML=`
+
+<div class="allergens">
+
+<div class="allergens-title">
+⚠️ Allergene
+</div>
+
+<div class="allergen-list">
+
+Keine Allergene angegeben.
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   ZUTATEN HTML
+========================= */
+
+let ingredientsHTML="";
 
 if(ingredients){
 
-ingredientsHTML = `
+ingredientsHTML=`
 
 <div
 id="ingredientsBox"
@@ -683,7 +879,7 @@ ${escapeHTML(ingredients)}
 
 }else{
 
-ingredientsHTML = `
+ingredientsHTML=`
 
 <div
 id="ingredientsBox"
@@ -695,7 +891,7 @@ class="ingredients"
 </div>
 
 <div>
-⚠️ Für dieses Produkt wurde keine Zutatenliste gefunden.
+⚠️ Keine Zutatenliste vorhanden.
 </div>
 
 </div>
@@ -705,18 +901,21 @@ class="ingredients"
 }
 
 
-/* Produktkarte */
+/* =========================
+   PRODUKTKARTE
+========================= */
 
-document.getElementById(target).innerHTML = `
+document.getElementById(target).innerHTML=`
 
 <div class="card">
+
 
 <div
 class="favorite"
 onclick='toggleFavorite(${JSON.stringify(product)})'
 >
 
-${fav ? "⭐" : "☆"}
+${fav ? "⭐":"☆"}
 
 </div>
 
@@ -743,7 +942,9 @@ product.brands || ""
 <div class="small">
 
 Barcode:
-${escapeHTML(product.code || "Unbekannt")}
+${escapeHTML(
+product.code || "Unbekannt"
+)}
 
 </div>
 
@@ -755,6 +956,8 @@ ${serving}g
 
 </div>
 
+
+<!-- NÄHRWERTTABELLE -->
 
 <table>
 
@@ -769,94 +972,72 @@ Nährwert
 </th>
 
 <th>
-Ganzes Produkt (${serving}g)
+Ganzes Produkt
 </th>
 
 </tr>
 
 
 <tr>
-
-<td>
-Kcal
-</td>
-
-<td>
-${kcal100}
-</td>
-
-<td>
-${kcalAll}
-</td>
-
+<td>Kcal</td>
+<td>${kcal100}</td>
+<td>${kcalAll}</td>
 </tr>
 
 
 <tr>
-
-<td>
-Kohlenhydrate
-</td>
-
-<td>
-${carbs100}g
-</td>
-
-<td>
-${carbsAll}g
-</td>
-
+<td>Kohlenhydrate</td>
+<td>${carbs100}g</td>
+<td>${carbsAll}g</td>
 </tr>
 
 
 <tr>
-
-<td>
-Zucker
-</td>
-
-<td>
-${sugar100}g
-</td>
-
-<td>
-${sugarAll}g
-</td>
-
+<td>Zucker</td>
+<td>${sugar100}g</td>
+<td>${sugarAll}g</td>
 </tr>
 
 
 <tr>
-
-<td>
-Fett
-</td>
-
-<td>
-${fat100}g
-</td>
-
-<td>
-${fatAll}g
-</td>
-
+<td>Fett</td>
+<td>${fat100}g</td>
+<td>${fatAll}g</td>
 </tr>
 
 
 <tr>
+<td>Gesättigte Fettsäuren</td>
+<td>${saturated100}g</td>
+<td>${saturatedAll}g</td>
+</tr>
 
-<td>
-Protein
-</td>
 
-<td>
-${protein100}g
-</td>
+<tr>
+<td>Protein</td>
+<td>${protein100}g</td>
+<td>${proteinAll}g</td>
+</tr>
 
-<td>
-${proteinAll}g
-</td>
 
+<tr>
+<td>Ballaststoffe</td>
+<td>${fiber100}g</td>
+<td>${fiberAll}g</td>
+</tr>
+
+
+<tr>
+<td>Salz</td>
+<td>${salt100}g</td>
+<td>${saltAll}g</td>
+</tr>
+
+
+<tr>
+<td>Natrium</td>
+<td>${sodium100}g</td>
+<td>${sodiumAll}g</td>
 </tr>
 
 </table>
@@ -873,7 +1054,17 @@ placeholder="Eigene Grammzahl"
 
 <button
 class="main"
-onclick='customCalc(${carbs100},${sugar100},${fat100},${protein100},${kcal100})'
+onclick='customCalc(
+${carbs100},
+${sugar100},
+${fat100},
+${protein100},
+${kcal100},
+${saturated100},
+${fiber100},
+${salt100},
+${sodium100}
+)'
 >
 
 Berechnen
@@ -884,7 +1075,7 @@ Berechnen
 <div id="customResult"></div>
 
 
-<!-- NEUER ZUTATEN-BUTTON -->
+<!-- ZUTATEN -->
 
 <button
 class="ingredients-button"
@@ -897,6 +1088,22 @@ onclick="toggleIngredients(this)"
 
 
 ${ingredientsHTML}
+
+
+<!-- ALLERGENE -->
+
+${allergensHTML}
+
+
+<!-- DATENQUELLE -->
+
+<div class="source">
+
+<b>🌐 Datenquelle:</b>
+
+Open Food Facts
+
+</div>
 
 
 </div>
@@ -912,23 +1119,21 @@ ${ingredientsHTML}
 
 function toggleIngredients(button){
 
-let box =
+let box=
 button.nextElementSibling;
 
-if(
-box.style.display === "block"
-){
+if(box.style.display==="block"){
 
-box.style.display = "none";
+box.style.display="none";
 
-button.innerHTML =
+button.innerHTML=
 "🥕 Zutatenliste anzeigen";
 
 }else{
 
-box.style.display = "block";
+box.style.display="block";
 
-button.innerHTML =
+button.innerHTML=
 "🔽 Zutatenliste ausblenden";
 
 }
@@ -940,19 +1145,30 @@ button.innerHTML =
    EIGENE GRAMMZAHL
 ========================= */
 
-function customCalc(c,s,f,p,k){
+function customCalc(
+c,
+s,
+f,
+p,
+k,
+sat,
+fiber,
+salt,
+sodium
+){
 
-let input =
-document.getElementById("customGram");
+let g=
+parseFloat(
+document.getElementById(
+"customGram"
+).value
+);
 
-let g =
-parseFloat(input.value);
-
-if(!g || g <= 0){
+if(!g || g<=0){
 
 document.getElementById(
 "customResult"
-).innerHTML =
+).innerHTML=
 "Bitte eine gültige Grammzahl eingeben.";
 
 return;
@@ -961,85 +1177,58 @@ return;
 
 document.getElementById(
 "customResult"
-).innerHTML = `
+).innerHTML=`
 
 <table>
 
 <tr>
-
-<th>
-Nährwert
-</th>
-
-<th>
-${g}g
-</th>
-
+<th>Nährwert</th>
+<th>${g}g</th>
 </tr>
 
-
 <tr>
-
-<td>
-Kcal
-</td>
-
-<td>
-${(k / 100 * g).toFixed(1)}
-</td>
-
+<td>Kcal</td>
+<td>${(k/100*g).toFixed(1)}</td>
 </tr>
 
-
 <tr>
-
-<td>
-Kohlenhydrate
-</td>
-
-<td>
-${(c / 100 * g).toFixed(1)}g
-</td>
-
+<td>Kohlenhydrate</td>
+<td>${(c/100*g).toFixed(1)}g</td>
 </tr>
 
-
 <tr>
-
-<td>
-Zucker
-</td>
-
-<td>
-${(s / 100 * g).toFixed(1)}g
-</td>
-
+<td>Zucker</td>
+<td>${(s/100*g).toFixed(1)}g</td>
 </tr>
 
-
 <tr>
-
-<td>
-Fett
-</td>
-
-<td>
-${(f / 100 * g).toFixed(1)}g
-</td>
-
+<td>Fett</td>
+<td>${(f/100*g).toFixed(1)}g</td>
 </tr>
 
+<tr>
+<td>Gesättigte Fettsäuren</td>
+<td>${(sat/100*g).toFixed(1)}g</td>
+</tr>
 
 <tr>
+<td>Protein</td>
+<td>${(p/100*g).toFixed(1)}g</td>
+</tr>
 
-<td>
-Protein
-</td>
+<tr>
+<td>Ballaststoffe</td>
+<td>${(fiber/100*g).toFixed(1)}g</td>
+</tr>
 
-<td>
-${(p / 100 * g).toFixed(1)}g
-</td>
+<tr>
+<td>Salz</td>
+<td>${(salt/100*g).toFixed(1)}g</td>
+</tr>
 
+<tr>
+<td>Natrium</td>
+<td>${(sodium/100*g).toFixed(1)}g</td>
 </tr>
 
 </table>
@@ -1050,17 +1239,17 @@ ${(p / 100 * g).toFixed(1)}g
 
 
 /* =========================
-   FAVORIT HINZUFÜGEN/ENTFERNEN
+   FAVORITEN
 ========================= */
 
 function toggleFavorite(product){
 
-let index =
+let index=
 favorites.findIndex(
-f => f.code === product.code
+f=>f.code===product.code
 );
 
-if(index > -1){
+if(index>-1){
 
 favorites.splice(index,1);
 
@@ -1086,29 +1275,29 @@ location.reload();
 
 function renderFavorites(){
 
-let container =
+let container=
 document.getElementById(
 "favoritesList"
 );
 
-if(favorites.length === 0){
+if(favorites.length===0){
 
-container.innerHTML =
+container.innerHTML=
 "Keine Favoriten";
 
 return;
 
 }
 
-container.innerHTML = "";
+container.innerHTML="";
 
 favorites.forEach(f=>{
 
-let productJSON =
+let productJSON=
 JSON.stringify(f)
 .replace(/'/g,"&apos;");
 
-container.innerHTML += `
+container.innerHTML+=`
 
 <div
 class="fav-item"
@@ -1151,7 +1340,7 @@ document.querySelectorAll(
 
 document.getElementById(
 "barcodeInput"
-).value =
+).value=
 product.code || "";
 
 showProduct(
@@ -1168,14 +1357,14 @@ product,
 
 function calculate(){
 
-let carbs =
+let carbs=
 parseFloat(
 document.getElementById(
 "calcCarbs"
 ).value
 );
 
-let eat =
+let eat=
 parseFloat(
 document.getElementById(
 "calcEat"
@@ -1191,12 +1380,12 @@ return;
 
 }
 
-let result =
-carbs / 100 * eat;
+let result=
+carbs/100*eat;
 
 document.getElementById(
 "calcResult"
-).innerHTML = `
+).innerHTML=`
 
 Du hast
 <b>${result.toFixed(1)}g</b>
@@ -1208,13 +1397,15 @@ Kohlenhydrate gegessen.
 
 
 /* =========================
-   SICHERES HTML
+   HTML SICHER MACHEN
 ========================= */
 
 function escapeHTML(value){
 
-if(value === null ||
-value === undefined){
+if(
+value===null ||
+value===undefined
+){
 
 return "";
 
